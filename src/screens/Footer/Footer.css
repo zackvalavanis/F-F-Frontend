@@ -1,0 +1,6 @@
+.footer-container {
+  display: flex;
+  flex: 1;
+  background-color: #FFE8E6;
+  height: 400px;
+}
