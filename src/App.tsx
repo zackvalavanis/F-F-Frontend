@@ -3,6 +3,10 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import { Header } from './screens/Header/Header'
 import { Footer } from './screens/Footer/Footer'
 import { LandingPage } from './screens/LandingPage/LandingPage'
+import { Login } from './screens/Auth/Login'
+import { Recipes } from './screens/Recipes/Recipes'
+import { Favorites } from './screens/Favorites/Favorites'
+import { Story } from './screens/Story/Story'
 
 function App() {
   const router = createBrowserRouter([
@@ -19,7 +23,22 @@ function App() {
         </div>
       ),
       children: [
-
+        {
+          path: '/login',
+          element: <Login />
+        },
+        {
+          path: '/recipes',
+          element: <Recipes />
+        },
+        {
+          path: '/favorites',
+          element: <Favorites />
+        },
+        {
+          path: '/story',
+          element: <Story />
+        },
       ]
     }
   ])

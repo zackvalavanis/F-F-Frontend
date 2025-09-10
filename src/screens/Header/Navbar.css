@@ -1,0 +1,50 @@
+.navbar-container-before {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 200px;
+  margin: 0 auto;
+  border-bottom: 1.8px solid #f37136;
+}
+
+.navbar-container-after {}
+
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* space between left, center, right */
+  width: 80%;
+  /* or max-width: 1280px */
+  margin: 0 auto;
+}
+
+/* Left and Right groups */
+.container-left-side,
+.container-right-side {
+  display: flex;
+  gap: 50px;
+  /* space between links in each group */
+  align-items: center;
+  font-size: .6rem;
+  /* adjust as needed */
+  color: #f37136;
+  ;
+}
+
+.container-center {
+  font-size: 1.2rem;
+  font-weight: normal;
+  text-align: center;
+  color: #f37136;
+}
+
+.container-left-side {
+  margin-right: 50px;
+}
+
+.container-right-side {
+  margin-left: 50px;
+}

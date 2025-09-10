@@ -1,7 +1,11 @@
+import React from 'react'
+import { Navbar } from './Navbar'
+
 export function Header() {
+
   return (
     <div>
-      <h1>Hello</h1>
+      <Navbar />
     </div>
 
   )
