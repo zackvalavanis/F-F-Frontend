@@ -1,5 +1,7 @@
 import './Navbar.css'
 import { useNavigate } from 'react-router-dom'
+import food from "../../assets/Food.json"
+import { Player } from "@lottiefiles/react-lottie-player";
 
 export function Navbar() {
   const navigate = useNavigate()
@@ -15,6 +17,13 @@ export function Navbar() {
 
         <div className='container-center'>
           <h1 onClick={() => navigate('/')}>NavBar</h1>
+          <Player
+            autoplay
+            keepLastFrame
+            src={food}
+            style={{ height: "70px", width: "70px" }}
+            loop={false}
+          />
         </div>
 
         <div className='container-right-side'>

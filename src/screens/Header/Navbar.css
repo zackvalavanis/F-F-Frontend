@@ -1,50 +1,44 @@
-.navbar-container-before {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  height: 200px;
-  margin: 0 auto;
-  border-bottom: 1.8px solid #f37136;
-}
-
-.navbar-container-after {}
-
-
 .navbar-links {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* space between left, center, right */
+  /* left/right on edges */
   width: 80%;
-  /* or max-width: 1280px */
+  height: 180px;
   margin: 0 auto;
+  border-bottom: 1px solid #f37136;
+  position: relative;
+  /* needed for absolute centering of center */
+  font-family: "Crimson Text", serif;
 }
 
-/* Left and Right groups */
+.container-center h1 {
+  margin: 0;
+}
+
+.container-center {
+  position: absolute;
+  margin-bottom: 0;
+  font-size: 20px;
+  /* center container removed from flex flow */
+  left: 50%;
+  /* center horizontally */
+  top: 50%;
+  /* optional: vertical centering */
+  transform: translate(-50%, -50%);
+  /* perfect center */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #f37136;
+  font-family: "Crimson Text", serif;
+}
+
 .container-left-side,
 .container-right-side {
   display: flex;
   gap: 50px;
-  /* space between links in each group */
   align-items: center;
-  font-size: .6rem;
-  /* adjust as needed */
+  font-size: 0.6rem;
   color: #f37136;
-  ;
-}
-
-.container-center {
-  font-size: 1.2rem;
-  font-weight: normal;
-  text-align: center;
-  color: #f37136;
-}
-
-.container-left-side {
-  margin-right: 50px;
-}
-
-.container-right-side {
-  margin-left: 50px;
 }
