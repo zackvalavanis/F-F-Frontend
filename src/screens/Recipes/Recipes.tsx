@@ -6,7 +6,7 @@ interface Recipe {
 }
 
 export function Recipes() {
-  const [recipe, setRecipe] = useState<Recipe[]>([])
+  const [recipes, setRecipes] = useState<Recipe[]>([])
   const api = import.meta.env.VITE_BACKEND
   console.log(api)
 
@@ -15,7 +15,7 @@ export function Recipes() {
       const res = await fetch(api)
 
       const data = await res.json()
-      setRecipe(data)
+      setRecipes(data)
       console.log(data)
     } catch (error) {
       console.log(error)
@@ -31,7 +31,11 @@ export function Recipes() {
 
   return (
     <div>
-      <h1>Recipes</h1>
+      {recipes.map((recipe) => (
+        <div key={recipe.id}>
+          <h1>{recipe.name}</h1>
+        </div>
+      ))}
     </div>
   )
 }
