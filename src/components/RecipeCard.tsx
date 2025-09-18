@@ -71,9 +71,9 @@ export default function RecipeReviewCard() {
     setExpanded(expanded === id ? null : id);
   };
 
-  const handleShow = (id: number) => {
+  const handleShow = (recipe: Recipe) => {
     console.log('you clicked it yo')
-    navigate(`/recipes/${id}`)
+    navigate(`/recipes/${recipe.id}`, { state: recipe })
   }
 
   return (
@@ -138,7 +138,7 @@ export default function RecipeReviewCard() {
                   Prep: {recipe.prep_time} min | Cook: {recipe.prep_time} min
                 </Typography>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Button style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }} onClick={handleShow}>Start Cookin'</Button>
+                  <Button style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }} onClick={() => handleShow(recipe)}>Start Cookin'</Button>
                 </div>
               </CardContent>
             </Collapse>

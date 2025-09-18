@@ -8,6 +8,7 @@ import { Recipes } from './screens/Recipes/Recipes'
 import { Favorites } from './screens/Favorites/Favorites'
 import { Story } from './screens/Story/Story'
 import { RecipesShow } from './screens/Recipes/RecipesShow'
+import { NewRecipe } from './screens/Recipes/NewRecipe'
 
 function App() {
   const router = createBrowserRouter([
@@ -44,6 +45,10 @@ function App() {
           path: '/story',
           element: <Story />
         },
+        {
+          path: '/new-recipe',
+          element: <NewRecipe />
+        }
       ]
     }
   ])

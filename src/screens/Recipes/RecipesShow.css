@@ -1,0 +1,9 @@
+.recipe-show-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #ff7043;
+  min-height: 80em;
+  height: auto;
+}

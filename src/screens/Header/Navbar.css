@@ -32,6 +32,7 @@
   align-items: center;
   color: #f37136;
   font-family: "Crimson Text", serif;
+  cursor: pointer;
 }
 
 .container-left-side,
@@ -41,4 +42,10 @@
   align-items: center;
   font-size: 0.6rem;
   color: #f37136;
+  cursor: pointer;
+}
+
+.container-left-side h1:hover,
+.container-right-side h1:hover {
+  transform: scale(1.05);
 }
