@@ -47,7 +47,7 @@ export function LandingPage() {
               loop={false}
               style={{ height: 300, width: 300 }}
             />
-            <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#f37136', fontSize: '25px' }}>Welcome</h1>
+            <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#f37136', fontSize: '45px' }}>Welcome to Fork & Flame</h1>
           </div>
         )}
       </div>

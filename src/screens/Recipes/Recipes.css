@@ -1,9 +1,22 @@
 .recipes-page-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   min-height: 100em;
 }
 
+.recipe-top-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: #ff7043;
+  gap: 5px;
+}
+
+.recipe-top-container h1 {
+  margin-right: 50px;
+}
 
 .recipe-container {
   margin-top: 200px;

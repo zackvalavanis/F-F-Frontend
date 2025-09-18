@@ -14,7 +14,7 @@ export function Footer() {
       </div>
 
       <div className='footer-right-side'>
-        <h1>© 2024 All Rights Reserved</h1>
+        <h1 style={{ fontSize: '18px' }}>© 2024 All Rights Reserved Fork & Flame</h1>
       </div>
     </div>
   )
