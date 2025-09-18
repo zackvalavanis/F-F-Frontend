@@ -1,0 +1,14 @@
+.recipes-page-container {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  min-height: 100em;
+}
+
+
+.recipe-container {
+  display: flex;
+  align-items: center;
+
+
+}
