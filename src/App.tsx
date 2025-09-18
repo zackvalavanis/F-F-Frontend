@@ -7,6 +7,7 @@ import { Login } from './screens/Auth/Login'
 import { Recipes } from './screens/Recipes/Recipes'
 import { Favorites } from './screens/Favorites/Favorites'
 import { Story } from './screens/Story/Story'
+import { RecipesShow } from './screens/Recipes/RecipesShow'
 
 function App() {
   const router = createBrowserRouter([
@@ -30,6 +31,10 @@ function App() {
         {
           path: '/recipes',
           element: <Recipes />
+        },
+        {
+          path: '/recipes/:id',
+          element: <RecipesShow />
         },
         {
           path: '/favorites',
