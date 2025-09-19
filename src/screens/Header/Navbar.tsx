@@ -16,7 +16,7 @@ export function Navbar() {
         </div>
 
         <div className='container-center'>
-          <h1 onClick={() => navigate('/')}>NavBar</h1>
+          <h1 style={{ textAlign: 'center' }} onClick={() => navigate('/')}>Fork&Flame</h1>
           <Player
             autoplay
             keepLastFrame

@@ -28,6 +28,7 @@ export function LandingPage() {
         {!showSecond && (
           <Player
             autoplay
+            speed={6}
             src={prepareFood}
             loop={false}
             style={{ height: 300, width: 300 }}
@@ -42,12 +43,19 @@ export function LandingPage() {
           <div className="second-animation-container">
             <Player
               autoplay
+              speed={1}
               src={foodAnimation}
               keepLastFrame
               loop={false}
               style={{ height: 300, width: 300 }}
             />
-            <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#f37136', fontSize: '45px' }}>Welcome to Fork & Flame</h1>
+            <h1 style={{ display: 'flex', justifyContent: 'center', color: '#f37136' }}>Generate a new recipe or find an existing!</h1>
+            <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#f37136', fontSize: '25px' }}>Enter your ingredients below</p>
+            <div className='container-input-buttons' style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
+              <input style={{ width: '400px', height: '40px' }} type='list'></input>
+              <button className='landingPage-buttons' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px' }}>Generate new Recipe</button>
+              <button className='landingPage-buttons' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px' }}>Find current Recipe</button>
+            </div>
           </div>
         )}
       </div>

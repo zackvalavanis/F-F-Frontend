@@ -6,3 +6,7 @@
   background-color: #c3e2dc;
   font-family: "Crimson Text", serif;
 }
+
+.landingPage-buttons:hover {
+  transform: scale(1.05);
+}
