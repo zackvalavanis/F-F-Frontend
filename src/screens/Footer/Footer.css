@@ -2,9 +2,9 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  color: #f37136;
+  color: black;
   flex: 1;
-  background-color: #FFE8E6;
+  background-color: #f37136;
   height: 300px;
 }
 

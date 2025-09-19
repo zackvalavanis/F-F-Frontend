@@ -52,7 +52,7 @@ export function LandingPage() {
             <h1 style={{ display: 'flex', justifyContent: 'center', color: '#f37136' }}>Generate a new recipe or find an existing!</h1>
             <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#f37136', fontSize: '25px' }}>Enter your ingredients below</p>
             <div className='container-input-buttons' style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
-              <input style={{ width: '400px', height: '40px' }} type='list'></input>
+              <input style={{ width: '400px', height: '40px', borderRadius: '20px' }} type='list'></input>
               <button className='landingPage-buttons' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px' }}>Generate new Recipe</button>
               <button className='landingPage-buttons' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px' }}>Find current Recipe</button>
             </div>

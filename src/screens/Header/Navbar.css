@@ -1,38 +1,34 @@
+.navbar-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.navbar-scrolled {
+  background-color: #ffffff;
+  /* fixed typo from #ffff */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  height: 80px;
+  /* shrink height */
+  padding: 0 0;
+  /* optional: remove extra padding */
+}
+
 .navbar-links {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* left/right on edges */
   width: 80%;
   height: 180px;
   margin: 0 auto;
   border-bottom: 1px solid #f37136;
   position: relative;
-  /* needed for absolute centering of center */
+  /* needed for absolute center */
   font-family: "Crimson Text", serif;
-}
-
-.container-center h1 {
-  margin: 0;
-}
-
-.container-center {
-  position: absolute;
-  margin-bottom: 0;
-  font-size: 20px;
-  /* center container removed from flex flow */
-  left: 50%;
-  /* center horizontally */
-  top: 50%;
-  /* optional: vertical centering */
-  transform: translate(-50%, -50%);
-  /* perfect center */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #f37136;
-  font-family: "Crimson Text", serif;
-  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .container-left-side,
@@ -40,12 +36,55 @@
   display: flex;
   gap: 50px;
   align-items: center;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
+  /* slightly larger than 0.6rem for readability */
   color: #f37136;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .container-left-side h1:hover,
 .container-right-side h1:hover {
   transform: scale(1.05);
+}
+
+.container-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Crimson Text", serif;
+  color: #f37136;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.container-center h1 {
+  margin: 0;
+  font-size: 24px;
+  /* base font size */
+}
+
+/* Shrink elements on scroll */
+.navbar-scrolled .navbar-links {
+  height: 80px;
+  border-bottom: 1px solid #f37136;
+}
+
+.navbar-scrolled .container-center {
+  top: 50%;
+}
+
+.navbar-scrolled .container-center h1 {
+  font-size: 20px;
+  /* smaller when scrolled */
+}
+
+.navbar-scrolled .container-left-side h1,
+.navbar-scrolled .container-right-side h1 {
+  font-size: 0.7rem;
+  /* shrink side links */
 }
