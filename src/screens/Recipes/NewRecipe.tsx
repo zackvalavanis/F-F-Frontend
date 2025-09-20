@@ -17,6 +17,20 @@ interface Recipe {
 }
 
 export function NewRecipe() {
+  const [category, setCategory] = useState<string>('')
+  const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"]
+
+  const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    setCategory(value);
+    setFormData(prev => ({
+      ...prev,
+      category: value
+    }));
+    console.log("Selected category", value);
+  };
+
+
   const [formData, setFormData] = useState<Recipe>({
     category: "",
     description: "",
@@ -61,7 +75,7 @@ export function NewRecipe() {
     }
 
     try {
-      const res = await fetch(import.meta.env.VITE_BACKEND + "/recipes", {
+      const res = await fetch(import.meta.env.VITE_BACKEND_HOST + "/recipes", {
         method: "POST",
         body: data
       });
@@ -95,10 +109,15 @@ export function NewRecipe() {
           <input type="text" name="title" value={formData.title} onChange={handleChange} required />
         </label>
 
-        <label>
-          Category:
-          <input type="text" name="category" value={formData.category} onChange={handleChange} />
-        </label>
+        <label htmlFor="category">Category:</label>
+        <select id="category" value={category} onChange={handleChangeCategory}>
+          <option value="">-- Select a category --</option>
+          {categories.map((cat, idx) => (
+            <option key={idx} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
 
         <label>
           Description:
