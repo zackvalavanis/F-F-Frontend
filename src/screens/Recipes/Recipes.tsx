@@ -61,7 +61,7 @@ export function Recipes() {
         <h1>Recipes</h1>
         <label htmlFor="category">Category:</label>
         <select id="category" value={category} onChange={handleChange}>
-          <option value="">-- Select a category --</option>
+          <option value="">-- All --</option>
           {categories.map((cat, idx) => (
             <option key={idx} value={cat}>
               {cat}
