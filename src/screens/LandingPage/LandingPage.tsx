@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { Header } from "../Header/Header";
-import { Footer } from "../Footer/Footer";
 import './LandingPage.css';
 import { Player } from "@lottiefiles/react-lottie-player";
 import foodAnimation from "../../assets/Food-animation.json";
@@ -59,8 +58,6 @@ export function LandingPage() {
           </div>
         )}
       </div>
-
-      <Footer />
     </div>
   );
 }

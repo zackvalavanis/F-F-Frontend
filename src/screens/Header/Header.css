@@ -1,9 +1,0 @@
-.main-content {
-  margin-top: 80px;
-  /* height of the fixed navbar */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 80px);
-}

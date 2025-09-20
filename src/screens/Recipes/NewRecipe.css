@@ -7,6 +7,9 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   font-family: 'Arial', sans-serif;
+  margin-top: 200px;
+  /* Prevent overlap with fixed navbar */
+  padding-top: 2rem;
 }
 
 /* Form element */
@@ -14,6 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 }
 
 /* Labels */
@@ -34,6 +38,9 @@
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  /* ensures padding doesn’t break width */
 }
 
 /* Textarea styling */
@@ -54,13 +61,15 @@
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  align-self: flex-start;
+  /* button aligned to left */
 }
 
 .new-recipe-form button[type="submit"]:hover {
   background-color: #ff5722;
 }
 
-/* Optional: hover effect for inputs */
+/* Optional: hover/focus effect for inputs */
 .new-recipe-form input[type="text"]:focus,
 .new-recipe-form input[type="number"]:focus,
 .new-recipe-form textarea:focus {

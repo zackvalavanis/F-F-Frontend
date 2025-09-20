@@ -1,5 +1,7 @@
 /* Root and global styles */
 :root {
+  --navbar-height: 100px;
+  /* 👈 define once, reuse everywhere */
   font-family: "Crimson Text", serif;
   line-height: 1.5;
   font-weight: 400;
@@ -18,7 +20,7 @@
 a {
   font-weight: 500;
   color: #646cff;
-  text-decoration: inherit;
+  text-decoration: none;
 }
 
 a:hover {
@@ -30,10 +32,11 @@ html {
   scroll-behavior: smooth;
 }
 
-
 /* Body */
 body {
   margin: 0;
+  padding-top: var(--navbar-height);
+  /* 👈 ensures content starts below navbar */
   min-width: 320px;
   min-height: 100vh;
   font-family: inherit;
@@ -44,6 +47,8 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin: 0;
+  /* remove default margin */
 }
 
 /* Buttons */
@@ -55,8 +60,9 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
+  color: #fff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s ease;
 }
 
 button:hover {
@@ -68,15 +74,16 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* Main content */
+/* Main content (optional wrapper) */
 .main-content {
-  margin-top: 80px;
-  /* push content below navbar */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - var(--navbar-height));
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1rem;
 }
 
 /* Light mode */
@@ -92,6 +99,7 @@ button:focus-visible {
 
   button {
     background-color: #f9f9f9;
+    color: #213547;
   }
 
   .navbar-container {

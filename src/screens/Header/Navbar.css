@@ -1,90 +1,86 @@
+/* Navbar container */
 .navbar-container {
   position: fixed;
   top: 0;
   width: 100%;
+  height: 200px;
   background-color: transparent;
-  transition: all 0.3s ease;
-  z-index: 100;
-}
-
-.navbar-scrolled {
-  background-color: #ffffff;
-  /* fixed typo from #ffff */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  height: 80px;
-  /* shrink height */
-  padding: 0 0;
-  /* optional: remove extra padding */
-}
-
-.navbar-links {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  width: 80%;
-  height: 180px;
-  margin: 0 auto;
-  border-bottom: 1px solid #f37136;
-  position: relative;
-  /* needed for absolute center */
+  z-index: 1000;
   font-family: "Crimson Text", serif;
   transition: all 0.3s ease;
 }
 
-.container-left-side,
-.container-right-side {
+/* Navbar when scrolled */
+.navbar-scrolled {
+  background-color: #fff;
+  height: 70px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar links wrapper */
+.navbar-links {
+  width: 80%;
   display: flex;
-  gap: 50px;
+  justify-content: space-between;
   align-items: center;
-  font-size: 0.8rem;
-  /* slightly larger than 0.6rem for readability */
-  color: #f37136;
-  cursor: pointer;
+  position: relative;
   transition: all 0.3s ease;
 }
 
-.container-left-side h1:hover,
-.container-right-side h1:hover {
-  transform: scale(1.05);
+/* Left & right links */
+.container-left-side,
+.container-right-side {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  font-size: .5rem;
+  color: #f37136;
+  cursor: pointer;
 }
 
+.container-left-side h1:hover,
+.container-right-side h1:hover,
+.container-center h1:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* Center logo/text */
 .container-center {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: "Crimson Text", serif;
+  font-size: 2rem;
   color: #f37136;
+  text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.container-center h1 {
-  margin: 0;
-  font-size: 24px;
-  /* base font size */
-}
-
-/* Shrink elements on scroll */
-.navbar-scrolled .navbar-links {
-  height: 80px;
-  border-bottom: 1px solid #f37136;
-}
-
+/* Shrink font sizes on scroll */
 .navbar-scrolled .container-center {
-  top: 50%;
+  font-size: .7rem;
 }
 
-.navbar-scrolled .container-center h1 {
-  font-size: 20px;
-  /* smaller when scrolled */
+.navbar-scrolled .container-left-side,
+.navbar-scrolled .container-right-side {
+  font-size: 0.4rem;
 }
 
-.navbar-scrolled .container-left-side h1,
-.navbar-scrolled .container-right-side h1 {
-  font-size: 0.7rem;
-  /* shrink side links */
+/* Border line at bottom */
+.border-line {
+  position: absolute;
+  bottom: 0;
+  width: 80%;
+  height: 1px;
+  background-color: #f37136;
+  transition: all 0.3s ease;
+}
+
+.navbar-scrolled .border-line {
+  width: 100%;
 }

@@ -13,10 +13,6 @@ import { NewRecipe } from './screens/Recipes/NewRecipe'
 function App() {
   const router = createBrowserRouter([
     {
-      path: '/',
-      element: <LandingPage />
-    },
-    {
       element: (
         <div>
           <Header />
@@ -25,30 +21,13 @@ function App() {
         </div>
       ),
       children: [
-        {
-          path: '/login',
-          element: <Login />
-        },
-        {
-          path: '/recipes',
-          element: <Recipes />
-        },
-        {
-          path: '/recipes/:id',
-          element: <RecipesShow />
-        },
-        {
-          path: '/favorites',
-          element: <Favorites />
-        },
-        {
-          path: '/story',
-          element: <Story />
-        },
-        {
-          path: '/new-recipe',
-          element: <NewRecipe />
-        }
+        { path: '/', element: <LandingPage /> },
+        { path: '/login', element: <Login /> },
+        { path: '/recipes', element: <Recipes /> },
+        { path: '/recipes/:id', element: <RecipesShow /> },
+        { path: '/favorites', element: <Favorites /> },
+        { path: '/story', element: <Story /> },
+        { path: '/new-recipe', element: <NewRecipe /> }
       ]
     }
   ])
