@@ -1,11 +1,46 @@
 import './Recipes.css'
 import RecipeReviewCard from "../../components/RecipeCard"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+interface Recipe {
+  id: number;
+  category: string;
+  description: string;
+  difficulty: number;
+  ingredients: string;
+  prep_time: number;
+  rating: number;
+  servings: number;
+  tags: string;
+  title: string;
+  images?: string[];
+  user?: {
+    id: number;
+    name: string;
+    email: string;
+  };
+}
 
 export function Recipes() {
-  const [category, setCategory] = useState<string>('')
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
+  const [category, setCategory] = useState('');
 
   const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"]
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const res = await fetch(import.meta.env.VITE_BACKEND);
+        const data = await res.json();
+        setRecipes(data);
+        setFilteredRecipes(data);
+      } catch (error) {
+        console.error("Failed to fetch recipes:", error);
+      }
+    };
+    fetchRecipes();
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(event.target.value)
@@ -13,9 +48,12 @@ export function Recipes() {
   }
 
   const handleSearch = () => {
-    console.log('searching...')
-  }
-
+    if (!category) {
+      setFilteredRecipes(recipes);
+    } else {
+      setFilteredRecipes(recipes.filter(r => r.category === category));
+    }
+  };
 
   return (
     <div className='recipes-page-container'>
@@ -34,19 +72,10 @@ export function Recipes() {
       </div>
 
       <div className='recipe-container'>
-        <RecipeReviewCard />
+        {filteredRecipes.map((recipe) => (
+          <RecipeReviewCard key={recipe.id} recipe={recipe} />
+        ))}
       </div>
-
     </div>
   )
-
 }
-
-
-
-
-
-
-
-
-

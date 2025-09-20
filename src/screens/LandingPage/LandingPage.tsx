@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { Header } from "../Header/Header";
 import './LandingPage.css';
 import { Player } from "@lottiefiles/react-lottie-player";
 import foodAnimation from "../../assets/Food-animation.json";
@@ -12,7 +11,7 @@ export function LandingPage() {
 
   return (
     <div className="landing-page">
-      <Header />
+
 
       {/* Optional clickable area */}
       <div
@@ -53,7 +52,7 @@ export function LandingPage() {
             <div className='container-input-buttons' style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
               <input style={{ width: '400px', height: '40px', borderRadius: '20px' }} type='list'></input>
               <button className='landingPage-buttons' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px' }}>Generate new Recipe</button>
-              <button className='landingPage-buttons' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px' }}>Find current Recipe</button>
+              <button onClick={() => navigate('/recipes')} className='landingPage-buttons' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px' }}>Find current Recipe</button>
             </div>
           </div>
         )}

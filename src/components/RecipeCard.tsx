@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -14,7 +13,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
@@ -34,6 +33,15 @@ interface Recipe {
   tags: string;
   title: string;
   images?: string[];
+  user?: {
+    id: number;
+    name: string;
+    email: string;
+  };
+}
+
+interface RecipeReviewCardProps {
+  recipe: Recipe;
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
@@ -47,104 +55,104 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function RecipeReviewCard() {
-  const [expanded, setExpanded] = useState<number | null>(null);
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const api = import.meta.env.VITE_BACKEND;
-  const navigate = useNavigate()
+export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
+  const [expanded, setExpanded] = useState(false);
+  const navigate = useNavigate();
 
-  const handleIndex = async () => {
-    try {
-      const res = await fetch(api);
-      const data = await res.json();
-      setRecipes(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    handleIndex();
-  }, []);
-
-  const handleExpandClick = (id: number) => {
-    setExpanded(expanded === id ? null : id);
-  };
-
-  const handleShow = (recipe: Recipe) => {
-    console.log('you clicked it yo')
-    navigate(`/recipes/${recipe.id}`, { state: recipe })
-  }
+  const handleExpandClick = () => setExpanded(!expanded);
+  const handleShow = () => navigate(`/recipes/${recipe.id}`, { state: recipe });
 
   return (
-    <div style={{
-      display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fill, minmax(345px, 1fr))'
-    }}>
-      {
-        recipes.map((recipe) => (
-          <Card key={recipe.id} sx={{ maxWidth: 345 }}>
-            <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                  {recipe.title[0]}
-                </Avatar>
-              }
-              action={
-                <IconButton aria-label="settings">
-                  <MoreVertIcon />
-                </IconButton>
-              }
-              title={recipe.title}
-              subheader={recipe.category}
-            />
-            {recipe.images && recipe.images.length > 0 && (
-              <CardMedia
-                component="img"
-                height="194"
-                image={recipe.images[0]} // show the first image
-                alt={recipe.title}
-              />
-            )}
-            <CardContent>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {recipe.description}
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-              </IconButton>
-              <IconButton aria-label="share">
-                <ShareIcon />
-              </IconButton>
-              <ExpandMore
-                expand={expanded === recipe.id}
-                onClick={() => handleExpandClick(recipe.id)}
-                aria-expanded={expanded === recipe.id}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </ExpandMore>
-            </CardActions>
-            <Collapse in={expanded === recipe.id} timeout="auto" unmountOnExit>
-              <CardContent>
-                <Typography sx={{ marginBottom: 2 }}>
-                  Ingredients: {recipe.ingredients}
-                </Typography>
-                <Typography sx={{ marginBottom: 2 }}>
-                  Difficulty: {recipe.difficulty} | Rating: {recipe.rating}
-                </Typography>
-                <Typography sx={{ marginBottom: 2 }}>
-                  Prep: {recipe.prep_time} min | Cook: {recipe.prep_time} min
-                </Typography>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Button style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }} onClick={() => handleShow(recipe)}>Start Cookin'</Button>
-                </div>
-              </CardContent>
-            </Collapse>
-          </Card>
-        ))
-      }
-    </div >
+    <Card
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: 300,
+        height: expanded ? 'auto' : 400,  // base height for all cards
+        borderRadius: 2,
+        boxShadow: 3,
+        transition: 'all 0.3s ease',
+        '&:hover': { transform: 'scale(1.03)', boxShadow: 6 },
+      }}
+    >
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            {recipe.title[0]}
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title={recipe.title}
+        subheader={recipe.category}
+      />
+
+      {recipe.images && recipe.images.length > 0 && (
+        <CardMedia
+          component="img"
+          height={180}
+          image={recipe.images[0]}
+          alt={recipe.title}
+          sx={{ objectFit: 'cover' }}
+        />
+      )}
+
+      <CardContent sx={{ flexGrow: 1 }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+            display: '-webkit-box',
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+          }}
+        >
+          {recipe.description}
+        </Typography>
+      </CardContent>
+
+      <CardActions disableSpacing sx={{ justifyContent: 'space-between' }}>
+        <div>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+        </div>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </CardActions>
+
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent sx={{ pt: 0 }}>
+          <Typography variant="subtitle2" sx={{ mb: 1 }}>
+            Created By: {recipe.user ? recipe.user.name : 'Unknown'}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 1 }}>
+            Ingredients: {recipe.ingredients}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 1 }}>
+            Difficulty: {recipe.difficulty} | Rating: {recipe.rating}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            Prep: {recipe.prep_time} min | Cook: {recipe.prep_time} min
+          </Typography>
+          <Button fullWidth variant="contained" color="primary" onClick={handleShow}>
+            Start Cookin'
+          </Button>
+        </CardContent>
+      </Collapse>
+    </Card>
   );
 }
