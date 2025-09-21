@@ -48,14 +48,6 @@ export function Login() {
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
-              label="Name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              margin="normal"
-            />
-            <TextField
-              fullWidth
               label="Email"
               type="email"
               name="email"
