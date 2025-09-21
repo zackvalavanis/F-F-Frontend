@@ -62,6 +62,12 @@ export function Recipes() {
     setModalShow(false); // close modal after applying filter
   };
 
+  const clearFilter = () => {
+    setFilteredRecipes(recipes)
+  }
+
+
+
   return (
     <div className='recipes-page-container'>
       <div className='recipe-top-container'>
@@ -71,9 +77,16 @@ export function Recipes() {
             variant="contained"
             color="primary"
             onClick={() => setModalShow(true)}
-            sx={{ fontSize: '18px' }}
+            sx={{ fontSize: '18px', backgroundColor: '#ff7043' }}
           >
             Filter
+          </Button>
+          <Button
+            variant="contained"
+            onClick={clearFilter}
+            sx={{ fontSize: '18px', backgroundColor: '#ff7043' }}
+          >
+            Clear filters
           </Button>
         </div>
       </div>

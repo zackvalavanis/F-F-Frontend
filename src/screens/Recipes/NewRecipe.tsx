@@ -15,6 +15,7 @@ interface Recipe {
   tags: string;
   title: string;
   images?: File[];
+  directions: string;
 }
 
 export function NewRecipe() {
@@ -44,6 +45,7 @@ export function NewRecipe() {
     tags: "",
     title: "",
     images: [],
+    directions: ""
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -95,6 +97,7 @@ export function NewRecipe() {
         tags: "",
         title: "",
         images: [],
+        directions: ""
       });
     } catch (err) {
       console.error(err);
@@ -125,9 +128,25 @@ export function NewRecipe() {
           <textarea name="description" value={formData.description} onChange={handleChange} />
         </label>
 
+
         <label>
           Ingredients:
-          <textarea name="ingredients" value={formData.ingredients} onChange={handleChange} />
+          <textarea
+            name="ingredients"
+            value={formData.ingredients}
+            onChange={handleChange}
+            placeholder="Enter each ingredient on a new line"
+          />
+        </label>
+
+        <label>
+          Directions:
+          <textarea
+            name="directions"
+            value={formData.directions}
+            onChange={handleChange}
+            placeholder="Enter each step on a new line"
+          />
         </label>
 
         <label>
