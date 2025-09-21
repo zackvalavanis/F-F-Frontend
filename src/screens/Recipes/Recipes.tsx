@@ -38,7 +38,7 @@ export function Recipes() {
   const [modalShow, setModalShow] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const recipesPerPage = 9; // 3x3 grid
+  const recipesPerPage = 12; // 3x3 grid
 
   const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"];
 
@@ -151,6 +151,7 @@ export function Recipes() {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)', // 3 columns
+          gridAutoRows: 'auto',
           gap: '5.5rem',
         }}
       >
