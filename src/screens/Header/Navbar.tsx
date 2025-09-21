@@ -28,7 +28,7 @@ export function Navbar() {
         </div>
 
         <div className="container-right-side">
-          <h1 onClick={() => navigate('/story')}>Story</h1>
+          <h1 onClick={() => navigate('/restaurants')}>Restaurants</h1>
           <h1 onClick={() => navigate('/new-recipe')}>New Recipe</h1>
         </div>
       </div>

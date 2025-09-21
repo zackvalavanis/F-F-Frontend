@@ -6,7 +6,7 @@ import { LandingPage } from './screens/LandingPage/LandingPage'
 import { Login } from './screens/Auth/Login'
 import { Recipes } from './screens/Recipes/Recipes'
 import { Favorites } from './screens/Favorites/Favorites'
-import { Story } from './screens/Story/Story'
+import { Restaurants } from './screens/Restaurants/Restaurants'
 import { RecipesShow } from './screens/Recipes/RecipesShow'
 import { NewRecipe } from './screens/Recipes/NewRecipe'
 
@@ -26,7 +26,7 @@ function App() {
         { path: '/recipes', element: <Recipes /> },
         { path: '/recipes/:id', element: <RecipesShow /> },
         { path: '/favorites', element: <Favorites /> },
-        { path: '/story', element: <Story /> },
+        { path: '/restaurants', element: <Restaurants /> },
         { path: '/new-recipe', element: <NewRecipe /> }
       ]
     }

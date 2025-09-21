@@ -37,6 +37,9 @@ export function Recipes() {
   const [category, setCategory] = useState('');
   const [modalShow, setModalShow] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const recipesPerPage = 9; // 3x3 grid
+
   const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"];
 
   useEffect(() => {
@@ -54,19 +57,25 @@ export function Recipes() {
   }, []);
 
   const handleSearch = () => {
-    if (!category) {
-      setFilteredRecipes(recipes);
-    } else {
-      setFilteredRecipes(recipes.filter(r => r.category === category));
-    }
-    setModalShow(false); // close modal after applying filter
+    const filtered = category
+      ? recipes.filter(r => r.category === category)
+      : recipes;
+    setFilteredRecipes(filtered);
+    setCurrentPage(1); // reset to first page
+    setModalShow(false);
   };
 
   const clearFilter = () => {
-    setFilteredRecipes(recipes)
-  }
+    setFilteredRecipes(recipes);
+    setCategory('');
+    setCurrentPage(1);
+  };
 
-
+  // Pagination logic
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = filteredRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+  const totalPages = Math.ceil(filteredRecipes.length / recipesPerPage);
 
   return (
     <div className='recipes-page-container'>
@@ -140,15 +149,34 @@ export function Recipes() {
       <div
         className='recipe-container'
         style={{
-          gap: '1.5rem',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          alignItems: 'stretch',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)', // 3 columns
+          gap: '5.5rem',
         }}
       >
-        {filteredRecipes.map((recipe) => (
+        {currentRecipes.map((recipe) => (
           <RecipeReviewCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
+
+      {/* PAGINATION */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 2 }}>
+        <Button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(prev => prev - 1)}
+        >
+          Previous
+        </Button>
+        <Typography sx={{ display: 'flex', alignItems: 'center' }}>
+          Page {currentPage} of {totalPages}
+        </Typography>
+        <Button
+          disabled={currentPage === totalPages || totalPages === 0}
+          onClick={() => setCurrentPage(prev => prev + 1)}
+        >
+          Next
+        </Button>
+      </Box>
     </div>
   );
 }

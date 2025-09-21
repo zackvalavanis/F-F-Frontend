@@ -9,7 +9,7 @@ export function Footer() {
     <div className='footer-container'>
 
       <div className='footer-left-side'>
-        <h1 onClick={() => navigate('/')}>Login</h1>
+        <h1 onClick={() => navigate('/login')}>Login</h1>
         <h1 onClick={() => navigate('/recipes')}>Recipes</h1>
         <h1 onClick={() => navigate('/favorites')}>Favorites</h1>
         <h1 onClick={() => navigate('/story')}>Story</h1>
