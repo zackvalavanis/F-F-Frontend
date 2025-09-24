@@ -7,3 +7,8 @@
   min-height: 80em;
   height: 120rem;
 }
+
+.rating-container {
+  display: flex;
+  align-items: left;
+}

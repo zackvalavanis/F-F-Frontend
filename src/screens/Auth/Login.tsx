@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography, Paper } from '@mui/material';
 import './Login.css'
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
+  const navigate = useNavigate()
+  const api = import.meta.env.VITE_BACKEND_HOST
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
     password: '',
   });
@@ -13,10 +15,23 @@ export function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Login data:', formData);
-    // Add your login logic here
+    try {
+      const res = await fetch(`${api}/sessions.json`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      if (res.ok) {
+        const data = await res.json()
+        console.log('Logged in user', data)
+        navigate('/')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
