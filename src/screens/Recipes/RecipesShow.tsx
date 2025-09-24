@@ -101,7 +101,7 @@ export function RecipesShow() {
         Directions
       </Typography>
       <ol>
-        {recipe.directions
+        {recipe.directions && recipe.directions
           .split('.')
           .map(step => step.trim())
           .filter(step => step.length > 0)

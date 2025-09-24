@@ -9,6 +9,7 @@ import { Favorites } from './screens/Favorites/Favorites'
 import { Restaurants } from './screens/Restaurants/Restaurants'
 import { RecipesShow } from './screens/Recipes/RecipesShow'
 import { NewRecipe } from './screens/Recipes/NewRecipe'
+import { Profile } from './screens/Profile/Profile'
 
 function App() {
   const router = createBrowserRouter([
@@ -27,7 +28,8 @@ function App() {
         { path: '/recipes/:id', element: <RecipesShow /> },
         { path: '/favorites', element: <Favorites /> },
         { path: '/restaurants', element: <Restaurants /> },
-        { path: '/new-recipe', element: <NewRecipe /> }
+        { path: '/new-recipe', element: <NewRecipe /> },
+        { path: '/profile/:id', element: <Profile /> }
       ]
     }
   ])
