@@ -24,6 +24,7 @@ interface Recipe {
   tags: string;
   title: string;
   images?: string[];
+  directions: string;
   user?: {
     id: number;
     name: string;
