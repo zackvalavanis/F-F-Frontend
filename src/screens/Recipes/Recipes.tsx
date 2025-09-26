@@ -37,11 +37,15 @@ export function Recipes() {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [category, setCategory] = useState('');
   const [modalShow, setModalShow] = useState(false);
+  const [difficulty, setDifficulty] = useState('');
+  const [rating, setRating] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 12; // 3x3 grid
 
   const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"];
+  const difficulties = [1, 2, 3, 4, 5]
+  const ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -57,12 +61,25 @@ export function Recipes() {
     fetchRecipes();
   }, []);
 
+  console.log(recipes)
+
   const handleSearch = () => {
-    const filtered = category
-      ? recipes.filter(r => r.category === category)
-      : recipes;
+    const filtered = recipes.filter(r => {
+      let match = true;
+      if (category) {
+        match = match && r.category === category;
+      }
+      if (rating) {
+        match = match && r.rating === Number(rating)
+      }
+      if (difficulty) {
+        match = match && r.difficulty === Number(difficulty);
+      }
+      return match;
+    });
+
     setFilteredRecipes(filtered);
-    setCurrentPage(1); // reset to first page
+    setCurrentPage(1);
     setModalShow(false);
   };
 
@@ -135,7 +152,48 @@ export function Recipes() {
                 </MenuItem>
               ))}
             </Select>
+
+
+
+
           </FormControl>
+
+          <FormControl fullWidth sx={{ mb: 2 }}>
+
+            <InputLabel id="difficulty-label">Difficulty</InputLabel>
+            <Select
+              labelId="difficulty-label"
+              value={difficulty}
+              label="difficulty"
+              onChange={(e) => setDifficulty(e.target.value)}
+            >
+              <MenuItem value="">All</MenuItem>
+              {difficulties.map((dif, idx) => (
+                <MenuItem key={idx} value={dif}>
+                  {dif}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth sx={{ mb: 2 }}>
+
+            <InputLabel id="rating-label">Rating</InputLabel>
+            <Select
+              labelId="rating-label"
+              value={rating}
+              label="rating"
+              onChange={(e) => setRating(e.target.value)}
+            >
+              <MenuItem value="">All</MenuItem>
+              {ratings.map((rate, idx) => (
+                <MenuItem key={idx} value={rate}>
+                  {rate}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
 
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
             <Button onClick={() => setModalShow(false)}>Cancel</Button>
