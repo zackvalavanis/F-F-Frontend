@@ -10,6 +10,7 @@ import { Restaurants } from './screens/Restaurants/Restaurants'
 import { RecipesShow } from './screens/Recipes/RecipesShow'
 import { NewRecipe } from './screens/Recipes/NewRecipe'
 import { Profile } from './screens/Profile/Profile'
+import { UserProvider } from './components/Context/user-context'
 
 function App() {
   const router = createBrowserRouter([
@@ -37,7 +38,9 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
     </>
   )
 }

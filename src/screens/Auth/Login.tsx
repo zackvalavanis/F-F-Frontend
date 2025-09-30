@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Box, TextField, Button, Typography, Paper } from '@mui/material';
 import './Login.css'
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../components/Context/user-context';
 
 export function Login() {
   const navigate = useNavigate()
+  const { setUser } = useUser()
   const api = import.meta.env.VITE_BACKEND_HOST
   const [formData, setFormData] = useState({
     email: '',
@@ -27,6 +29,7 @@ export function Login() {
       if (res.ok) {
         const data = await res.json()
         console.log('Logged in user', data)
+        setUser(data)
         navigate('/')
       }
     } catch (error) {

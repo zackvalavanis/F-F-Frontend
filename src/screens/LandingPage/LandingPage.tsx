@@ -3,16 +3,53 @@ import './LandingPage.css';
 import { Player } from "@lottiefiles/react-lottie-player";
 import foodAnimation from "../../assets/Food-animation.json";
 import prepareFood from "../../assets/Prepare-Food.json";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
+import { useUser } from "../../components/Context/user-context";
 
 export function LandingPage() {
   const navigate = useNavigate();
   const [showSecond, setShowSecond] = useState(false);
+  const { user } = useUser();
+  const api = import.meta.env.VITE_BACKEND_HOST
+  const [recipeId, setrecipeId] = useState('')
+
+  console.log(user?.name)
+
+
+  const handleRecipeGenerator = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const ingredientsInput = form.elements.namedItem('ingredients') as HTMLInputElement | null;
+    const servingsInput = form.elements.namedItem('servings') as HTMLInputElement | null;
+
+    if (!ingredientsInput) {
+      console.error("Ingredients input not found!");
+      return;
+    }
+
+    const ingredients = ingredientsInput.value.split(',').map(s => s.trim());
+    const servings = servingsInput ? parseInt(servingsInput.value) || 1 : 1;
+
+    try {
+      const res = await fetch(`${api}/recipes/generate_from_ingredients`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ingredients, servings, save: true })
+      });
+
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      const json = await res.json();
+      setrecipeId(json);
+      console.log("Recipe saved:", json);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <div className="landing-page">
-
-
       {/* Optional clickable area */}
       <div
         className="clickable-area"
@@ -39,6 +76,7 @@ export function LandingPage() {
         )}
         {showSecond && (
           <div className="second-animation-container">
+            <h1 style={{ textAlign: 'center', color: '#f37136' }}>Welcome {user?.name || null}</h1>
             <Player
               autoplay
               speed={1}
@@ -50,8 +88,30 @@ export function LandingPage() {
             <h1 style={{ display: 'flex', justifyContent: 'center', color: '#f37136' }}>Generate a new recipe or find an existing!</h1>
             <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#f37136', fontSize: '25px' }}>Enter your ingredients below</p>
             <div className='container-input-buttons' style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
-              <input style={{ width: '400px', height: '40px', borderRadius: '20px' }} type='list'></input>
-              <button className='landingPage-buttons' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px' }}>Generate new Recipe</button>
+
+              <form onSubmit={handleRecipeGenerator}>
+                <input
+                  name="ingredients"
+                  style={{ width: '400px', height: '40px', borderRadius: '20px' }}
+                  type="text"
+                  placeholder="e.g., chicken, garlic, lemon"
+                />
+                <input
+                  name='servings'
+                  type='text'
+                  placeholder='How many servings'
+                  style={{ width: '400px', height: '40px', borderRadius: '20px' }}
+                >
+
+                </input>
+                <button
+                  type="submit"
+                  className="landingPage-buttons"
+                  style={{ width: '150px' }}
+                >
+                  Generate new Recipe
+                </button>
+              </form>
               <button onClick={() => navigate('/recipes')} className='landingPage-buttons' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px' }}>Find current Recipe</button>
             </div>
           </div>
