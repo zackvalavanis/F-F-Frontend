@@ -2,7 +2,8 @@
 :root {
   --navbar-height: 100px;
   /* 👈 define once, reuse everywhere */
-  font-family: "Crimson Text", serif;
+  /* font-family: "Crimson Text", serif; */
+  font-family: cursive;
   line-height: 1.5;
   font-weight: 400;
 
