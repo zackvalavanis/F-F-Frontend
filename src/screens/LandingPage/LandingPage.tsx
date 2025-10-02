@@ -5,6 +5,7 @@ import foodAnimation from "../../assets/Food-animation.json";
 import prepareFood from "../../assets/Prepare-Food.json";
 import { useState, type FormEvent } from "react";
 import { useUser } from "../../components/Context/user-context";
+import { Box, TextField, Button, Typography, Paper } from '@mui/material';
 
 export function LandingPage() {
   const navigate = useNavigate();
@@ -87,36 +88,73 @@ export function LandingPage() {
             />
             <h1 style={{ display: 'flex', justifyContent: 'center', color: '#f37136' }}>Generate a new recipe or find an existing!</h1>
             <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#f37136', fontSize: '25px' }}>Enter your ingredients below</p>
-            <div className='container-input-buttons' style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
 
-              <form onSubmit={handleRecipeGenerator}>
-                <input
-                  name="ingredients"
-                  style={{ width: '400px', height: '40px', borderRadius: '20px' }}
-                  type="text"
-                  placeholder="e.g., chicken, garlic, lemon"
-                />
-                <input
-                  name='servings'
-                  type='text'
-                  placeholder='How many servings'
-                  style={{ width: '400px', height: '40px', borderRadius: '20px' }}
-                >
 
-                </input>
-                <button
-                  type="submit"
-                  className="landingPage-buttons"
-                  style={{ width: '150px' }}
-                >
-                  Generate new Recipe
-                </button>
-              </form>
-              <button onClick={() => navigate('/recipes')} className='landingPage-buttons' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '150px' }}>Find current Recipe</button>
-            </div>
+
+            <Box
+              sx={{
+                minHeight: '60vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                p: 2,
+              }}>
+
+              <Paper
+                elevation={6}
+                sx={{
+                  p: 4,
+                  width: '100%',
+                  maxWidth: 400,
+                  borderRadius: 3,
+                  boxShadow: '0px 4px 20px rgba(0,0,0,0.1)',
+                }}
+              >
+                <form className='generate-new-recipe-container' onSubmit={handleRecipeGenerator}>
+                  <TextField
+                    name="ingredients"
+                    style={{ width: '400px', height: '40px', borderRadius: '20px' }}
+                    type="text"
+                    placeholder="e.g., chicken, garlic, lemon"
+                  />
+                  <TextField
+                    name='servings'
+                    type='text'
+                    placeholder='How many servings'
+                    style={{ width: '400px', height: '40px', borderRadius: '20px' }}
+                  >
+                  </TextField>
+                  {/* <Button
+                    type="submit"
+                    className="landingPage-buttons"
+                    style={{ width: '150px' }}
+                  >
+                    Generate new Recipe
+                  </Button> */}
+
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    sx={{ mt: 2, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
+                  >
+                    Ask Ai to Generate a New Recipe
+                  </Button>
+
+                  <Button
+                    onClick={() => navigate('/recipes')}
+                    variant="contained"
+                    fullWidth
+                    sx={{ mt: 1, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
+                  >
+                    Find a Recipe
+                  </Button>
+                </form>
+              </Paper>
+            </Box>
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 }

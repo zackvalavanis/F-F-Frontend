@@ -1,13 +1,10 @@
 import './Navbar.css';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import fire from '/Users/zackariasvalavanis/Desktop/Portfolio/fork-flame/fork-flame-frontend/src/assets/flames-icon.svg'
 
 export function Navbar() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
-
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +24,7 @@ export function Navbar() {
         </div>
 
         <div className="container-center">
-          <h1 onClick={() => navigate('/')}>Fork <img style={{ height: '50px', width: '50px' }} src={fire} alt="Logo" />Flame</h1>
+          <h1 onClick={() => navigate('/')}>Fork & Flame</h1>
         </div>
 
         <div className="container-right-side">

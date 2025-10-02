@@ -6,6 +6,17 @@
   background-color: #c3e2dc;
 }
 
+.generate-new-recipe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background-color: white;
+  border-radius: 20px;
+  height: 300px;
+}
+
 .landingPage-buttons:hover {
   transform: scale(1.05);
 }
