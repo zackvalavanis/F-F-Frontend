@@ -11,15 +11,23 @@ export function LandingPage() {
   const navigate = useNavigate();
   const [showSecond, setShowSecond] = useState(false);
   const { user } = useUser();
+  const [loading, setLoading] = useState(false);
   const api = import.meta.env.VITE_BACKEND_HOST
   const [recipeId, setrecipeId] = useState('')
+  const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"]
+  const [category, setCategory] = useState<string>('')
 
   console.log(user?.name)
 
+  const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    setCategory(value);
+    console.log("Selected category", value);
+  };
 
   const handleRecipeGenerator = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setLoading(true)
     const form = e.currentTarget;
     const ingredientsInput = form.elements.namedItem('ingredients') as HTMLInputElement | null;
     const servingsInput = form.elements.namedItem('servings') as HTMLInputElement | null;
@@ -38,27 +46,33 @@ export function LandingPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ingredients, servings, save: true })
       });
-
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const json = await res.json();
       setrecipeId(json);
-      console.log("Recipe saved:", json);
+      navigate('/recipes')
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false)
     }
   };
 
 
   return (
     <div className="landing-page">
-      {/* Optional clickable area */}
-      <div
-        className="clickable-area"
-        onClick={() => navigate('/login')}
-        style={{ cursor: 'pointer', height: '50px', background: 'transparent' }}
-      >
-        {/* You can add text or keep it empty */}
-      </div>
+
+      {/* Full-screen loading overlay */}
+      {loading && (
+        <div className="loading-overlay">
+          <Player
+            autoplay
+            loop
+            src={foodAnimation}
+            style={{ height: 200, width: 200 }}
+          />
+          <h2 style={{ color: '#f37136' }}>Cooking something up...</h2>
+        </div>
+      )}
 
       <div className="main-container">
         {!showSecond && (
@@ -70,14 +84,18 @@ export function LandingPage() {
             style={{ height: 300, width: 300 }}
             onEvent={(event) => {
               if (event === "complete") {
-                setShowSecond(true); // show second animation when first finishes
+                setShowSecond(true);
               }
             }}
           />
         )}
+
         {showSecond && (
           <div className="second-animation-container">
-            <h1 style={{ textAlign: 'center', color: '#f37136' }}>Welcome {user?.name || null}</h1>
+            <h1 style={{ textAlign: 'center', color: '#f37136' }}>
+              Welcome {user?.name || null}
+            </h1>
+
             <Player
               autoplay
               speed={1}
@@ -86,10 +104,6 @@ export function LandingPage() {
               loop={false}
               style={{ height: 300, width: 300 }}
             />
-            <h1 style={{ display: 'flex', justifyContent: 'center', color: '#f37136' }}>Generate a new recipe or find an existing!</h1>
-            <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#f37136', fontSize: '25px' }}>Enter your ingredients below</p>
-
-
 
             <Box
               sx={{
@@ -98,8 +112,8 @@ export function LandingPage() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 p: 2,
-              }}>
-
+              }}
+            >
               <Paper
                 elevation={6}
                 sx={{
@@ -111,6 +125,14 @@ export function LandingPage() {
                 }}
               >
                 <form className='generate-new-recipe-container' onSubmit={handleRecipeGenerator}>
+                  <select id="category" value={category} onChange={handleChangeCategory}>
+                    <option value="">-- Select a category --</option>
+                    {categories.map((cat, idx) => (
+                      <option key={idx} value={cat}>
+                        {cat}
+                      </option>
+                    ))}
+                  </select>
                   <TextField
                     name="ingredients"
                     style={{ width: '400px', height: '40px', borderRadius: '20px' }}
@@ -122,16 +144,7 @@ export function LandingPage() {
                     type='text'
                     placeholder='How many servings'
                     style={{ width: '400px', height: '40px', borderRadius: '20px' }}
-                  >
-                  </TextField>
-                  {/* <Button
-                    type="submit"
-                    className="landingPage-buttons"
-                    style={{ width: '150px' }}
-                  >
-                    Generate new Recipe
-                  </Button> */}
-
+                  />
                   <Button
                     type="submit"
                     variant="contained"
@@ -140,9 +153,8 @@ export function LandingPage() {
                   >
                     Ask Ai to Generate a New Recipe
                   </Button>
-
                   <Button
-                    onClick={() => navigate('/recipes')}
+                    onClick={() => navigate('/loading')}
                     variant="contained"
                     fullWidth
                     sx={{ mt: 1, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
@@ -155,6 +167,6 @@ export function LandingPage() {
           </div>
         )}
       </div>
-    </div >
+    </div>
   );
 }

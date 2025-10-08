@@ -11,6 +11,7 @@ import { RecipesShow } from './screens/Recipes/RecipesShow'
 import { NewRecipe } from './screens/Recipes/NewRecipe'
 import { Profile } from './screens/Profile/Profile'
 import { UserProvider } from './components/Context/user-context'
+import { LoadingScreen } from './screens/Loading/LoadingScreen'
 
 function App() {
   const router = createBrowserRouter([
@@ -22,6 +23,7 @@ function App() {
           <Footer />
         </div>
       ),
+
       children: [
         { path: '/', element: <LandingPage /> },
         { path: '/login', element: <Login /> },
@@ -30,9 +32,10 @@ function App() {
         { path: '/favorites', element: <Favorites /> },
         { path: '/restaurants', element: <Restaurants /> },
         { path: '/new-recipe', element: <NewRecipe /> },
-        { path: '/profile/:id', element: <Profile /> }
+        { path: '/profile/:id', element: <Profile /> },
       ]
-    }
+    },
+    { path: '/loading', element: <LoadingScreen /> },
   ])
 
 
