@@ -12,6 +12,7 @@ import { NewRecipe } from './screens/Recipes/NewRecipe'
 import { Profile } from './screens/Profile/Profile'
 import { UserProvider } from './components/Context/UserProvider'
 import { LoadingScreen } from './screens/Loading/LoadingScreen'
+import { RestaurantShow } from './screens/Restaurants/RestaurantShow'
 
 function App() {
   const router = createBrowserRouter([
@@ -33,6 +34,7 @@ function App() {
         { path: '/restaurants', element: <Restaurants /> },
         { path: '/new-recipe', element: <NewRecipe /> },
         { path: '/profile/:id', element: <Profile /> },
+        { path: '/restaurants/:id', element: <RestaurantShow /> }
       ]
     },
     { path: '/loading', element: <LoadingScreen /> },

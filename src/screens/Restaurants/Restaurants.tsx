@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Typography, Paper, Button } from '@mui/material';
 import Grid from "@mui/material/Grid"
+import { useNavigate } from 'react-router-dom';
 
 
 interface Restaurant {
@@ -16,6 +17,7 @@ export function Restaurants() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 9; // 3x3 grid
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -38,6 +40,9 @@ export function Restaurants() {
   const currentRestaurants = restaurants.slice(firstIndex, lastIndex);
   const totalPages = Math.ceil(restaurants.length / perPage);
 
+
+
+
   return (
     <div style={{ marginTop: '10rem' }}>
       <Box sx={{ minHeight: '100vh', p: 4 }}>
@@ -50,8 +55,9 @@ export function Restaurants() {
 
         <Grid container spacing={4} justifyContent="center">
           {currentRestaurants.map((restaurant) => (
-            <Grid container spacing={4} justifyContent="center">
+            <Grid key={restaurant.id} spacing={4} justifyContent="center">
               <Paper
+                onClick={() => navigate(`/restaurants/${restaurant.id}`, { state: currentPage })}
                 elevation={3}
                 sx={{
                   p: 3,
