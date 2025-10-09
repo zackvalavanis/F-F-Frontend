@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Box, Typography, Paper, Button } from '@mui/material';
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid"
 
 
 interface Restaurant {
@@ -50,7 +50,7 @@ export function Restaurants() {
 
         <Grid container spacing={4} justifyContent="center">
           {currentRestaurants.map((restaurant) => (
-            <Grid item component="div" xs={12} sm={6} md={4} key={restaurant.id}>
+            <Grid container spacing={4} justifyContent="center">
               <Paper
                 elevation={3}
                 sx={{
