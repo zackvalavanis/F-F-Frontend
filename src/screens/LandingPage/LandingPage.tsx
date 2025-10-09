@@ -4,8 +4,8 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import foodAnimation from "../../assets/Food-animation.json";
 import prepareFood from "../../assets/Prepare-Food.json";
 import { useState, type FormEvent } from "react";
-import { useUser } from "../../components/Context/user-context";
-import { Box, TextField, Button, Typography, Paper } from '@mui/material';
+import useUser from '../../components/Context/useUser.tsx';
+import { Box, TextField, Button, Paper } from '@mui/material';
 
 export function LandingPage() {
   const navigate = useNavigate();
@@ -18,6 +18,7 @@ export function LandingPage() {
   const [category, setCategory] = useState<string>('')
 
   console.log(user?.name)
+  console.log(recipeId)
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;

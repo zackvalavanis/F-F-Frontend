@@ -60,7 +60,7 @@ export function NewRecipe() {
     if (e.target.files) {
       setFormData(prev => ({
         ...prev,
-        images: Array.from(e.target.files)
+        images: Array.from(e.target.files ?? [])
       }));
     }
   };
@@ -69,13 +69,23 @@ export function NewRecipe() {
     e.preventDefault();
 
     const data = new FormData();
+
     for (const key in formData) {
-      if (key === "images" && formData.images) {
-        formData.images.forEach((file) => data.append("images[]", file));
-      } else {
-        data.append(key, (formData as any)[key]);
+      const value = formData[key as keyof typeof formData];
+
+      if (key === "images" && Array.isArray(value)) {
+        // ✅ Handle multiple file uploads
+        value.forEach((file) => {
+          if (file instanceof File) {
+            data.append("images[]", file);
+          }
+        });
+      } else if (value !== undefined && value !== null) {
+        // ✅ Convert non-file values safely to string
+        data.append(key, String(value));
       }
-    }
+    };
+
 
     try {
       const res = await fetch(import.meta.env.VITE_BACKEND_HOST + "/recipes", {

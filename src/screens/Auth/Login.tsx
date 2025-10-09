@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Box, TextField, Button, Typography, Paper } from '@mui/material';
 import './Login.css'
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../components/Context/user-context';
+import useUser from '../../components/Context/useUser.tsx';
+
 
 export function Login() {
   const navigate = useNavigate()

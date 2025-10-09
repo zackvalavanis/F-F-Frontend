@@ -10,7 +10,7 @@ import { Restaurants } from './screens/Restaurants/Restaurants'
 import { RecipesShow } from './screens/Recipes/RecipesShow'
 import { NewRecipe } from './screens/Recipes/NewRecipe'
 import { Profile } from './screens/Profile/Profile'
-import { UserProvider } from './components/Context/user-context'
+import { UserProvider } from './components/Context/UserProvider'
 import { LoadingScreen } from './screens/Loading/LoadingScreen'
 
 function App() {
