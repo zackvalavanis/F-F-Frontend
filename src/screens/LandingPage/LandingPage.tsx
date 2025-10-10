@@ -45,8 +45,9 @@ export function LandingPage() {
       const res = await fetch(`${api}/recipes/generate_from_ingredients`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ingredients, servings, save: true })
+        body: JSON.stringify({ ingredients, servings, category, save: true })
       });
+      console.log(res)
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const json = await res.json();
       setrecipeId(json);
