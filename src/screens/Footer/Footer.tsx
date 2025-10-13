@@ -2,9 +2,23 @@ import './Footer.css'
 import { useNavigate } from 'react-router-dom'
 import food from "../../assets/Food.json"
 import { Player } from "@lottiefiles/react-lottie-player";
+import axios from 'axios'
 
 export function Footer() {
   const navigate = useNavigate()
+
+
+  const handleLogout = (e: { preventDefault: () => void; }) => {
+    e.preventDefault()
+    delete axios.defaults.headers.common["Authorization"];
+    localStorage.removeItem('jwt')
+    localStorage.removeItem("user");
+    window.location.href = '/'
+  }
+
+  console.log()
+
+
   return (
     <div className='footer-container'>
 
@@ -13,6 +27,7 @@ export function Footer() {
         <h1 onClick={() => navigate('/recipes')}>Recipes</h1>
         <h1 onClick={() => navigate('/favorites')}>Favorites</h1>
         <h1 onClick={() => navigate('/story')}>Story</h1>
+        <h1 onClick={handleLogout}>Logout</h1>
       </div>
 
       <div>
