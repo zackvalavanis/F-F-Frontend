@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography, Paper, Button } from '@mui/material';
+import { Box, Typography, Paper, Button, TextField } from '@mui/material';
 import Grid from "@mui/material/Grid"
 import { useNavigate } from 'react-router-dom';
+import MenuItem from '@mui/material/MenuItem';
 
 
 interface Restaurant {
@@ -18,27 +19,53 @@ export function Restaurants() {
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 9; // 3x3 grid
   const navigate = useNavigate()
+  const [price, setPrice] = useState('')
+  const [minRating, setMinRating] = useState('')
+  const [city, setCity] = useState('')
+  const [foodType, setFoodType] = useState('')
+
+  const priceMapping: Record<string, number> = {
+    '$': 1,
+    '$$': 2,
+    '$$$': 3,
+    '$$$$': 4,
+  };
+
+  const params = new URLSearchParams();
+
+  if (price) params.append('price', priceMapping[price].toString())
+  if (minRating) params.append('min_rating', minRating)  // use underscore
+  if (city) params.append('city', city)
+  if (foodType) params.append('food_type', foodType)
+
+  const queryString = params.toString()
+
+  const fetchRestaurants = async () => {
+    try {
+      const res = await fetch(`${api}/restaurants?${queryString}`);
+      if (!res.ok) throw new Error('Network response was not ok');
+      const data = await res.json();
+      setRestaurants(data);
+    } catch (error) {
+      console.error('Error fetching restaurants:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchRestaurants = async () => {
-      try {
-        const res = await fetch(`${api}/restaurants.json`);
-        if (!res.ok) throw new Error('Network response was not ok');
-        const data = await res.json();
-        setRestaurants(data);
-
-      } catch (error) {
-        console.error('Error fetching restaurants:', error);
-      }
-    };
     fetchRestaurants();
-  }, []);
+  }, [price, minRating, city, foodType]);
+
+
+
   console.log(restaurants)
   // Pagination logic
   const lastIndex = currentPage * perPage;
   const firstIndex = lastIndex - perPage;
   const currentRestaurants = restaurants.slice(firstIndex, lastIndex);
   const totalPages = Math.ceil(restaurants.length / perPage);
+
+
+
 
 
   return (
@@ -50,6 +77,41 @@ export function Restaurants() {
         >
           Restaurants
         </Typography>
+
+        <Box component="form" sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4, flexWrap: 'wrap' }}>
+          <TextField
+            label="Price"
+            select
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            variant="outlined"
+            sx={{ minWidth: 120 }}
+          >
+            <MenuItem value="$">$</MenuItem>
+            <MenuItem value="$$">$$</MenuItem>
+            <MenuItem value="$$$">$$$</MenuItem>
+            <MenuItem value="$$$$">$$$$</MenuItem>
+          </TextField>
+          <TextField
+            label="Min Rating"
+            type="number"
+            value={minRating}
+            onChange={(e) => setMinRating(e.target.value)}
+          />
+          <TextField
+            label="City"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <TextField
+            label="Food Type"
+            value={foodType}
+            onChange={(e) => setFoodType(e.target.value)}
+          />
+          <Button variant="contained" onClick={fetchRestaurants}>
+            Apply Filters
+          </Button>
+        </Box>
 
         <Grid container spacing={4} justifyContent="center">
           {currentRestaurants.map((restaurant) => (

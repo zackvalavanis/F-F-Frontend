@@ -1,36 +1,131 @@
+/* Landing page container */
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding-top: 100px;
+  /* match navbar height */
+  background-color: #c3e2dc;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
+  /* prevent horizontal overflow */
+}
+
 .main-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  margin-top: 200px;
-  background-color: #c3e2dc;
+  gap: 2rem;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.second-animation-container h1 {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  color: #f37136;
+  text-align: center;
 }
 
 .generate-new-recipe-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  background-color: white;
-  border-radius: 20px;
-  height: 300px;
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
-.landingPage-buttons:hover {
-  transform: scale(1.05);
+.generate-new-recipe-container select,
+.generate-new-recipe-container input,
+.generate-new-recipe-container .MuiTextField-root {
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
 }
 
+/* Animations responsive */
+.lottie-player {
+  width: 80vw !important;
+  max-width: 300px;
+  height: auto !important;
+}
+
+/* Loading overlay */
 .loading-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+}
+
+/* Buttons spacing */
+.generate-new-recipe-container button {
+  width: 100%;
+  max-width: 300px;
+}
+
+.container-categories {
+  display: flex;
+  justify-content: center;
+}
+
+.generate-new-recipe-container select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  /* centers the selected option text */
+  text-align-last: center;
+  /* centers for most browsers */
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #fff;
+  appearance: none;
+  /* removes default arrow on some browsers */
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .landing-page {
+    padding-top: 80px;
+    /* adjust if navbar height is smaller on mobile */
+  }
+
+  .lottie-player {
+    width: 90vw !important;
+    max-width: 300px;
+  }
+
+  .generate-new-recipe-container {
+    width: 90%;
+    padding: 0 1rem;
+  }
+
+  .generate-new-recipe-container select,
+  .generate-new-recipe-container input,
+  .generate-new-recipe-container .MuiTextField-root {
+    font-size: 0.9rem;
+  }
+
+  .container-categories {
+    display: flex;
+    justify-content: center;
+  }
 }

@@ -31,3 +31,37 @@
 .footer-left-side h1:hover {
   transform: scale(1.05);
 }
+
+@media (max-width: 480px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    /* shrink height for mobile */
+    padding: 10px;
+    overflow-x: hidden;
+    /* prevent horizontal scroll */
+  }
+
+  .footer-left-side,
+  .footer-right-side {
+    flex-direction: column;
+    gap: 10px;
+    padding: 5px;
+    font-size: 0.8rem;
+  }
+
+  .footer-right-side h1 {
+    font-size: 0.7rem;
+    text-align: center;
+  }
+
+  .footer-left-side h1 {
+    font-size: 0.7rem;
+  }
+
+  /* Center the Lottie animation */
+  .footer-container>div:nth-child(2) {
+    margin: 10px 0;
+  }
+}
