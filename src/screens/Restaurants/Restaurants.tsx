@@ -41,8 +41,6 @@ export function Restaurants() {
   const totalPages = Math.ceil(restaurants.length / perPage);
 
 
-
-
   return (
     <div style={{ marginTop: '10rem' }}>
       <Box sx={{ minHeight: '100vh', p: 4 }}>
@@ -57,7 +55,7 @@ export function Restaurants() {
           {currentRestaurants.map((restaurant) => (
             <Grid key={restaurant.id} spacing={4} justifyContent="center">
               <Paper
-                onClick={() => navigate(`/restaurants/${restaurant.id}`, { state: currentPage })}
+                onClick={() => navigate(`/restaurants/${restaurant.id}`, { state: restaurant })}
                 elevation={3}
                 sx={{
                   p: 3,
@@ -67,6 +65,7 @@ export function Restaurants() {
                   alignItems: 'center',
                   backgroundColor: '#fff',
                   transition: 'transform 0.2s, box-shadow 0.2s',
+                  cursor: 'pointer',
                   '&:hover': {
                     transform: 'scale(1.05)',
                     boxShadow: '0px 10px 20px rgba(0,0,0,0.2)',

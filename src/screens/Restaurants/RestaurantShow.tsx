@@ -1,29 +1,29 @@
-import { useEffect } from "react";
+import './RestaurantShow.css'
+import { useLocation } from 'react-router-dom'
+
 
 export function RestaurantShow() {
-  const api = import.meta.env.VITE_BACKEND_HOST
+  const location = useLocation()
+  const restaurant = location.state;
 
-  const handleSeeRestaurant = async (id: number) => {
-
-    try {
-      const res = await fetch(`${api}/restaurants/${id}.json`);
-      console.log(res)
-      const data = await res.json()
-      console.log(data)
-    } catch (error) {
-      console.log(error)
-    }
+  if (!restaurant) {
+    return <p>Restaurant data not found. Please go back.</p>;
   }
 
-  useEffect(() => {
-    handleSeeRestaurant(1); // Pass a valid restaurant ID here
-  }, [])
 
   return (
-    <>
-
-
-
-    </>
+    <div className='restaurant-show-page'>
+      <h1>{restaurant.name}</h1>
+      <h1>{restaurant.category}</h1>
+      {restaurant.images && restaurant.images.length > 0 ? (
+        restaurant.images.map((imageUrl, index) => (
+          <div key={index}>
+            <img src={imageUrl} alt={`${restaurant.name} image ${index + 1}`} />
+          </div>
+        ))
+      ) : (
+        <p>No images available</p>
+      )}
+    </div>
   )
 }
