@@ -52,6 +52,7 @@ export function RecipesShow() {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
       });
+      console.log(res)
       alert('Recipe deleted successfully');
       navigate('/');
     } catch (error) {
