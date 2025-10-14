@@ -24,25 +24,7 @@ export function Footer() {
       <div className='footer-left-side'>
         <h1 onClick={() => navigate('/recipes')}>Recipes</h1>
         <h1 onClick={() => navigate('/favorites')}>Favorites</h1>
-        <h1 onClick={() => navigate('/story')}>Story</h1>
-        {user ? (
-          <>
-            <h1 onClick={handleLogout}>Logout</h1>
-          </>
-        ) : (
-          <>
-            <h1 onClick={() => navigate('/sign-up')}>Sign Up</h1>
-            <h1 onClick={() => navigate('/login')}>Login</h1>
-          </>
-        )}
       </div>
-
-
-
-
-
-
-
 
       <div>
         <Player
@@ -52,10 +34,20 @@ export function Footer() {
           style={{ height: "100px", width: "100px" }}
           loop={false}
         />
+        <h1 style={{ fontSize: '18px' }}>© 2024 All Rights Reserved Fork & Flame</h1>
       </div>
 
       <div className='footer-right-side'>
-        <h1 style={{ fontSize: '18px' }}>© 2024 All Rights Reserved Fork & Flame</h1>
+        {user ? (
+          <>
+            <h1 style={{ fontSize: '.5rem' }} onClick={handleLogout}>Logout</h1>
+          </>
+        ) : (
+          <>
+            <h1 onClick={() => navigate('/sign-up')}>Sign Up</h1>
+            <h1 onClick={() => navigate('/login')}>Login</h1>
+          </>
+        )}
       </div>
     </div>
   )

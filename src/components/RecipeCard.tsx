@@ -15,7 +15,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -62,6 +62,19 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleShow = () => navigate(`/recipes/${recipe.id}`, { state: recipe });
+
+  const handleCopyUrl = (id: number) => {
+
+    const url = `${window.location.origin}/recipes/${id}`
+
+    navigator.clipboard.writeText(url).then(() => {
+      alert('Recipe address has been copied to your clipboard.')
+    })
+      .catch((err) => {
+        console.error('Failed to copy: ', err)
+        alert('Failed to copy recipe URL.')
+      })
+  }
 
   return (
     <Card
@@ -121,9 +134,11 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
           <IconButton aria-label="add to favorites">
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
+          <Tooltip title="Copy to clipboard" arrow>
+            <IconButton onClick={() => handleCopyUrl(recipe.id)} aria-label="share">
+              <ShareIcon />
+            </IconButton>
+          </Tooltip>
         </div>
         <ExpandMore
           expand={expanded}

@@ -31,6 +31,7 @@ export function Restaurants() {
     '$$$$': 4,
   };
 
+
   const params = new URLSearchParams();
 
   if (price) params.append('price', priceMapping[price].toString())
@@ -64,9 +65,12 @@ export function Restaurants() {
   const currentRestaurants = restaurants.slice(firstIndex, lastIndex);
   const totalPages = Math.ceil(restaurants.length / perPage);
 
-
-
-
+  const resetFilters = () => {
+    setPrice('')
+    setMinRating('')
+    setCity('')
+    setFoodType('')
+  }
 
   return (
     <div style={{ marginTop: '10rem' }}>
@@ -97,6 +101,7 @@ export function Restaurants() {
             type="number"
             value={minRating}
             onChange={(e) => setMinRating(e.target.value)}
+            slotProps={{ htmlInput: { min: 0, max: 10 } }}
           />
           <TextField
             label="City"
@@ -107,9 +112,17 @@ export function Restaurants() {
             label="Food Type"
             value={foodType}
             onChange={(e) => setFoodType(e.target.value)}
+            slotProps={{
+              htmlInput: {
+
+              }
+            }}
           />
           <Button variant="contained" onClick={fetchRestaurants}>
             Apply Filters
+          </Button>
+          <Button variant="contained" onClick={resetFilters}>
+            Clear Filters
           </Button>
         </Box>
 

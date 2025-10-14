@@ -23,12 +23,14 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  font-size: 0.8rem;
+  font-size: 0.5rem;
   text-align: center;
   padding: 20px;
+  cursor: pointer;
 }
 
-.footer-left-side h1:hover {
+.footer-left-side h1:hover,
+.footer-right-side h1:hover {
   transform: scale(1.05);
 }
 
