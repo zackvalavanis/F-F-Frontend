@@ -17,7 +17,7 @@ export function LandingPage() {
   const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"];
   const [category, setCategory] = useState<string>('');
   console.log(recipeId)
-  console.log(user)
+
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(event.target.value);
