@@ -64,6 +64,11 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
   const navigate = useNavigate();
   const [modalShowing, setModalShowing] = useState(false)
   const [rating, setRating] = useState<number | null>(null)
+  const api = import.meta.env.VITE_BACKEND_HOST
+  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
+
+
+
 
   const handleExpandClick = () => setExpanded(!expanded);
   const handleShow = () => navigate(`/recipes/${recipe.id}`, { state: recipe });
@@ -87,6 +92,34 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
     console.log('modalShowing')
   }
 
+
+  const handleRateRecipe = async (rating: number) => {
+    try {
+
+      const res = await fetch(`${api}/recipes/${recipe.id}/ratings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          "user_id": user.user_id,
+          "recipe_id": recipe.id,
+          "value": rating
+        }),
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json()
+      console.log('Rating submitted', data)
+      alert('Thank you for rating the recipe')
+    } catch (error) {
+      console.error('The recipe could not be rated.', error)
+      alert('Faield to submit rating')
+    }
+  }
+
   return (
     <div>
       <Card
@@ -106,6 +139,7 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
               {recipe.title[0]}
             </Avatar>
+
           }
           action={
             <IconButton aria-label="settings">
@@ -143,9 +177,11 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
 
         <CardActions disableSpacing sx={{ justifyContent: 'space-between' }}>
           <div>
-            <IconButton onClick={showLikeModal} aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
+            <Tooltip title='Rate dish'>
+              <IconButton onClick={showLikeModal} aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+            </Tooltip>
             <Tooltip title="Copy to clipboard" arrow>
               <IconButton onClick={() => handleCopyUrl(recipe.id)} aria-label="share">
                 <ShareIcon />
@@ -167,11 +203,14 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
             <Typography variant="subtitle2" sx={{ mb: 1 }}>
               Created By: {recipe.user ? recipe.user.name : 'Unknown'}
             </Typography>
+            <Typography variant="subtitle2" sx={{ mb: 1 }}>
+              Rating: {recipe.average_rating ? recipe.average_rating : 'Unknown'}
+            </Typography>
             <Typography variant="body2" sx={{ mb: 1 }}>
               Ingredients: {recipe.ingredients}
             </Typography>
             <Typography variant="body2" sx={{ mb: 1 }}>
-              Difficulty: {recipe.difficulty} | Rating: {recipe.average_rating}
+              Difficulty: {recipe.difficulty}
             </Typography>
             <Typography variant="body2" sx={{ mb: 2 }}>
               Prep: {recipe.prep_time} min | Cook: {recipe.prep_time} min
@@ -204,7 +243,7 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
               </Button>
             ))}
           </Box>
-          <Button style={{ marginTop: '20px' }} variant='contained'>
+          <Button onClick={() => handleRateRecipe(rating!)} style={{ marginTop: '20px' }} variant='contained'>
             Submit Rating
           </Button>
         </div>

@@ -39,7 +39,7 @@ export function Recipes() {
   const [modalShow, setModalShow] = useState(false);
   const [difficulty, setDifficulty] = useState('');
   const [rating, setRating] = useState('');
-  const api = import.meta.env.VITE_BACKEND_HOST
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 12; // 3x3 grid
@@ -89,22 +89,6 @@ export function Recipes() {
     setCategory('');
     setCurrentPage(1);
   };
-
-
-  const handleRateRecipe = async () => {
-    try {
-      const res = await fetch(`${api}/ratings`, {
-        method: 'POST',
-
-      })
-    } catch (error) {
-      console.error('The recipe could not be rated.', error)
-    }
-  }
-
-
-
-
 
   // Pagination logic
   const indexOfLastRecipe = currentPage * recipesPerPage;
@@ -169,12 +153,7 @@ export function Recipes() {
                 </MenuItem>
               ))}
             </Select>
-
-
-
-
           </FormControl>
-
           <FormControl fullWidth sx={{ mb: 2 }}>
 
             <InputLabel id="difficulty-label">Difficulty</InputLabel>
