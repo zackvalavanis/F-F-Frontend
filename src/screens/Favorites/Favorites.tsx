@@ -10,7 +10,7 @@ interface Recipe {
   ingredients: string;
   prep_time: number;
   cook_time: number;
-  rating: number;
+  average_rating: number;
   servings: number;
   tags: string;
   title: string;
@@ -31,7 +31,7 @@ export function Favorites() {
       try {
         const res = await fetch(import.meta.env.VITE_BACKEND);
         const data: Recipe[] = await res.json();
-        setFavorites(data.filter(r => r.rating >= 8));
+        setFavorites(data.filter(r => r.average_rating >= 8));
       } catch (error) {
         console.error("Failed to fetch recipes:", error);
       }

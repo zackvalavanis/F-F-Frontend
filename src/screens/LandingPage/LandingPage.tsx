@@ -103,11 +103,11 @@ export function LandingPage() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '100%',
+                width: '500px'
               }}
             >
               <Paper
-                elevation={6}
+                elevation={7}
                 sx={{
                   display: 'flex',
                   p: 4,
@@ -125,7 +125,8 @@ export function LandingPage() {
                     borderRadius: '20px',
                     backgroundColor: '#ff7043',
                     textAlign: 'center',
-                    height: '40px',
+                    height: '50px',
+                    width: '20rem',
                     fontSize: '20px',
                     alignItems: 'center'
                   }}>
