@@ -40,7 +40,7 @@ export function Footer() {
       <div className='footer-right-side'>
         {user ? (
           <>
-            <h1 style={{ fontSize: '.5rem' }} onClick={handleLogout}>Logout</h1>
+            <h1 onClick={handleLogout}>Logout</h1>
           </>
         ) : (
           <>

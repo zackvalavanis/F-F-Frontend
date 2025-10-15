@@ -19,7 +19,7 @@ interface Recipe {
   difficulty: number;
   ingredients: string;
   prep_time: number;
-  rating: number;
+  average_rating: number;
   servings: number;
   tags: string;
   title: string;
@@ -39,6 +39,7 @@ export function Recipes() {
   const [modalShow, setModalShow] = useState(false);
   const [difficulty, setDifficulty] = useState('');
   const [rating, setRating] = useState('');
+  const api = import.meta.env.VITE_BACKEND_HOST
 
   const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 12; // 3x3 grid
@@ -70,7 +71,7 @@ export function Recipes() {
         match = match && r.category === category;
       }
       if (rating) {
-        match = match && r.rating === Number(rating)
+        match = match && r.average_rating === Number(rating)
       }
       if (difficulty) {
         match = match && r.difficulty === Number(difficulty);
@@ -88,6 +89,22 @@ export function Recipes() {
     setCategory('');
     setCurrentPage(1);
   };
+
+
+  const handleRateRecipe = async () => {
+    try {
+      const res = await fetch(`${api}/ratings`, {
+        method: 'POST',
+
+      })
+    } catch (error) {
+      console.error('The recipe could not be rated.', error)
+    }
+  }
+
+
+
+
 
   // Pagination logic
   const indexOfLastRecipe = currentPage * recipesPerPage;

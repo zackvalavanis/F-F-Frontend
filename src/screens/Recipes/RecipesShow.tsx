@@ -12,7 +12,7 @@ interface Recipe {
   ingredients: string;
   prep_time: number;
   cook_time: number;
-  rating: number;
+  average_rating: number;
   directions: string;
   servings: number;
   tags: string;
@@ -63,7 +63,7 @@ export function RecipesShow() {
   return (
     <Box className="recipe-show-container" sx={{ padding: 4, maxWidth: 1000, margin: '0 auto' }}>
       <Box className="rating-container" sx={{ marginBottom: 2 }}>
-        <Typography variant="h6">{recipe.rating} ⭐</Typography>
+        <Typography variant="h6">{recipe.average_rating} ⭐</Typography>
       </Box>
 
       <Typography variant="h4" component="h1" gutterBottom>

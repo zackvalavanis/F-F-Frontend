@@ -31,7 +31,7 @@ interface Recipe {
   difficulty: number;
   ingredients: string;
   prep_time: number;
-  rating: number;
+  average_rating: number;
   servings: number;
   tags: string;
   title: string;
@@ -171,7 +171,7 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
               Ingredients: {recipe.ingredients}
             </Typography>
             <Typography variant="body2" sx={{ mb: 1 }}>
-              Difficulty: {recipe.difficulty} | Rating: {recipe.rating}
+              Difficulty: {recipe.difficulty} | Rating: {recipe.average_rating}
             </Typography>
             <Typography variant="body2" sx={{ mb: 2 }}>
               Prep: {recipe.prep_time} min | Cook: {recipe.prep_time} min
