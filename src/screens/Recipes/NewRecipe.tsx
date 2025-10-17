@@ -21,6 +21,7 @@ interface Recipe {
 export function NewRecipe() {
   const [category, setCategory] = useState<string>('')
   const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"]
+  const token = localStorage.getItem("jwt")
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -90,7 +91,10 @@ export function NewRecipe() {
     try {
       const res = await fetch(import.meta.env.VITE_BACKEND_HOST + "/recipes", {
         method: "POST",
-        body: data
+        body: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       const json = await res.json();
       console.log("Recipe created:", json);
