@@ -31,6 +31,7 @@ export function Login() {
         const data = await res.json()
         console.log('Logged in user', data)
         setUser(data)
+        localStorage.setItem('jwt', data.jwt)
         navigate('/')
       }
     } catch (error) {
