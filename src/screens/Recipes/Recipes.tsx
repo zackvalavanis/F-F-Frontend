@@ -51,7 +51,7 @@ export function Recipes() {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const res = await fetch(import.meta.env.VITE_BACKEND);
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_HOST}/recipes`);
         const data = await res.json();
         setRecipes(data);
         setFilteredRecipes(data);
