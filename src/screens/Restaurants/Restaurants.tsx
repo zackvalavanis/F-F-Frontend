@@ -77,9 +77,10 @@ export function Restaurants() {
       <Box sx={{ minHeight: '100vh', p: 4 }}>
         <Typography
           variant="h3"
-          sx={{ mb: 4, textAlign: 'center', color: '#ff7043', fontWeight: 600 }}
+          sx={{ display: 'flex', flexDirection: 'column', mb: 4, justifyContent: 'center', alignItems: 'center', textAlign: 'center', color: '#ff7043', fontWeight: 600 }}
         >
           Restaurants
+          <Button onClick={() => navigate('/create-restaurant')} variant='contained'>New Restaurant</Button>
         </Typography>
 
         <Box component="form" sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4, flexWrap: 'wrap' }}>

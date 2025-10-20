@@ -41,7 +41,7 @@ export function Navbar() {
       <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
         <div className="container-left-side">
           <h1 onClick={() => { navigate('/recipes'); setMenuOpen(false); }}>Recipes</h1>
-          <h1 onClick={() => { navigate('/favorites'); setMenuOpen(false); }}>Favorites</h1>
+          <h1 onClick={() => { navigate('/new-recipe'); setMenuOpen(false); }}>New Recipe</h1>
         </div>
 
         <div className="container-center" onClick={() => { navigate('/'); setMenuOpen(false); }}>
@@ -50,7 +50,7 @@ export function Navbar() {
 
         <div className="container-right-side">
           <h1 onClick={() => { navigate('/restaurants'); setMenuOpen(false); }}>Restaurants</h1>
-          <h1 onClick={() => { navigate('/new-recipe'); setMenuOpen(false); }}>New Recipe</h1>
+          <h1 onClick={() => { navigate('/create-restaurant'); setMenuOpen(false); }}>New Restaurant</h1>
         </div>
       </div>
 

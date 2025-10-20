@@ -14,6 +14,7 @@ import { UserProvider } from './components/Context/UserProvider'
 import { LoadingScreen } from './screens/Loading/LoadingScreen'
 import { RestaurantShow } from './screens/Restaurants/RestaurantShow'
 import { SignUp } from './screens/Auth/SignUp'
+import { CreateNewRestaurant } from './screens/Restaurants/CreateNewRestaurant'
 
 function App() {
   const router = createBrowserRouter([
@@ -36,6 +37,7 @@ function App() {
         { path: '/new-recipe', element: <NewRecipe /> },
         { path: '/profile/:id', element: <Profile /> },
         { path: '/restaurants/:id', element: <RestaurantShow /> },
+        { path: '/create-restaurant', element: <CreateNewRestaurant /> },
         { path: '/sign-up', element: <SignUp /> },
       ]
     },
