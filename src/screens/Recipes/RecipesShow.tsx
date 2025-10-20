@@ -54,7 +54,7 @@ export function RecipesShow() {
       });
       console.log(res)
       alert('Recipe deleted successfully');
-      navigate('/');
+      navigate('/recipes');
     } catch (error) {
       console.error(error);
     }

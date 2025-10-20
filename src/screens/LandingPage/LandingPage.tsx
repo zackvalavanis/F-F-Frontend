@@ -84,9 +84,7 @@ export function LandingPage() {
 
         {showSecond && (
           <div className="second-animation-container">
-            <h1>
-              Welcome {user?.name || null}
-            </h1>
+
 
             <Player
               autoplay
@@ -96,6 +94,15 @@ export function LandingPage() {
               loop={false}
               className="lottie-player"
             />
+            {user ? (
+              <div>
+                <h1>Welcome {user.name}</h1>
+              </div>
+            ) : (
+              <div>
+
+              </div>
+            )}
 
             <Box
               sx={{
