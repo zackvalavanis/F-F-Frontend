@@ -3,6 +3,7 @@ import { Box, Paper, Button, TextField, MenuItem, FormControlLabel, Checkbox } f
 import { useState } from 'react';
 
 export function CreateNewRestaurant() {
+  const api = import.meta.env.VITE_BACKEND_HOST
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -26,7 +27,6 @@ export function CreateNewRestaurant() {
     parking: '',
   });
 
-  // ✅ Correct event types
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }>
   ) => {
@@ -39,10 +39,20 @@ export function CreateNewRestaurant() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Submitted data:', formData);
-    // TODO: connect to backend API (e.g., POST /restaurants)
+
+    try {
+      const res = await fetch(`${api}/restaurants`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ restaurant: formData })
+      })
+      console.log(res)
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   return (
@@ -53,7 +63,7 @@ export function CreateNewRestaurant() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          p: 2,
+          p: 3,
         }}
       >
         <Paper
@@ -66,7 +76,7 @@ export function CreateNewRestaurant() {
             p: 4,
           }}
         >
-          <h1>Create a New Restaurant</h1>
+          <h1 style={{ paddingBottom: '30px' }}>Create a New Restaurant</h1>
 
           <form
             onSubmit={handleSubmit}
