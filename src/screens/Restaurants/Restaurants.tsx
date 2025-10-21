@@ -135,6 +135,8 @@ export function Restaurants() {
                 elevation={3}
                 sx={{
                   p: 3,
+                  height: 100,
+                  width: 200,
                   borderRadius: 3,
                   display: 'flex',
                   flexDirection: 'column',
