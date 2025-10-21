@@ -80,7 +80,7 @@ export function Restaurants() {
           sx={{ display: 'flex', flexDirection: 'column', mb: 4, justifyContent: 'center', alignItems: 'center', textAlign: 'center', color: '#ff7043', fontWeight: 600 }}
         >
           Restaurants
-          <Button onClick={() => navigate('/create-restaurant')} variant='contained'>New Restaurant</Button>
+          {/* <Button onClick={() => navigate('/create-restaurant')} variant='contained'>New Restaurant</Button> */}
         </Typography>
 
         <Box component="form" sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4, flexWrap: 'wrap' }}>
@@ -135,11 +135,13 @@ export function Restaurants() {
                 elevation={3}
                 sx={{
                   p: 3,
-                  height: 100,
+                  height: 120,
                   width: 200,
                   borderRadius: 3,
                   display: 'flex',
                   flexDirection: 'column',
+                  justifyContent: 'center',
+                  textAlign: 'center',
                   alignItems: 'center',
                   backgroundColor: '#fff',
                   transition: 'transform 0.2s, box-shadow 0.2s',
