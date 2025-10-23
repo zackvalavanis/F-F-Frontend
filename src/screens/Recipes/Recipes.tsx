@@ -205,9 +205,11 @@ export function Recipes() {
         className='recipe-container'
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)', // 3 columns
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
           gridAutoRows: 'auto',
-          gap: '5.5rem',
+          gap: '2rem', // smaller gap for mobile
+          width: '100%',
+          justifyItems: 'center', // center cards
         }}
       >
         {currentRecipes.map((recipe) => (

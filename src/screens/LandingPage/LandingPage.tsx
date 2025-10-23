@@ -83,8 +83,15 @@ export function LandingPage() {
         )}
 
         {showSecond && (
-          <div className="second-animation-container">
-
+          <div className="second-animation-container"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minHeight: '90vh',   // take full height
+              width: '100%',
+            }}>
 
             <Player
               autoplay
@@ -110,19 +117,27 @@ export function LandingPage() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '500px'
+                width: {
+                  xs: '350px',   // extra small screens (mobile)
+                  sm: '400px', // small screens
+                  md: '500px', // medium screens and up
+                },
               }}
             >
               <Paper
                 elevation={7}
                 sx={{
                   display: 'flex',
-                  p: 4,
+                  p: 3,
                   width: '100%',
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: 3,
                   boxShadow: '0px 4px 20px rgba(0,0,0,0.1)',
+                  flexDirection: {
+                    xs: 'column', // stack children vertically on mobile
+                    sm: 'row',    // row layout on larger screens
+                  },
                 }}
               >
                 <form className='generate-new-recipe-container' onSubmit={handleRecipeGenerator}>

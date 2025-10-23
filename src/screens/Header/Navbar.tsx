@@ -44,15 +44,17 @@ export function Navbar() {
           <h1 onClick={() => { navigate('/new-recipe'); setMenuOpen(false); }}>New Recipe</h1>
         </div>
 
-        <div className="container-center" onClick={() => { navigate('/'); setMenuOpen(false); }}>
-          Fork & Flame
-        </div>
-
         <div className="container-right-side">
           <h1 onClick={() => { navigate('/restaurants'); setMenuOpen(false); }}>Restaurants</h1>
           <h1 onClick={() => { navigate('/create-restaurant'); setMenuOpen(false); }}>New Restaurant</h1>
         </div>
       </div>
+
+      {/* Center brand */}
+      <div className="container-center" onClick={() => navigate('/')}>
+        <h1>Fork & Flame</h1>
+      </div>
+
 
       <div className="border-line"></div>
     </div>
