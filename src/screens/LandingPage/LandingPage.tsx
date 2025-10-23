@@ -7,6 +7,11 @@ import { useState, type FormEvent } from "react";
 import useUser from '../../components/Context/useUser.tsx';
 import { Box, TextField, Button, Paper } from '@mui/material';
 
+export interface User {
+  name: string;
+  user_id: number;
+}
+
 export function LandingPage() {
   const navigate = useNavigate();
   const { user } = useUser();
@@ -24,7 +29,7 @@ export function LandingPage() {
     e.preventDefault();
     setLoading(true);
 
-    if (!user?.user_id) {
+    if (!user || typeof user.user_id !== "number") {
       alert("You must be logged in to generate a recipe.");
       setLoading(false);
       return;
@@ -51,7 +56,7 @@ export function LandingPage() {
           ingredients,
           servings,
           category,
-          user_id: Number(user.user_id),
+          user_id: user.user_id,
           save: true
         })
       });
