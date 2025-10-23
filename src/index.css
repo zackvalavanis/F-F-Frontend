@@ -1,4 +1,3 @@
-/* Root and global styles */
 :root {
   --navbar-height: 100px;
   /* 👈 define once, reuse everywhere */
@@ -15,6 +14,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  /* fallback 0px */
+  --navbar-height: calc(100px + var(--safe-area-top));
 }
 
 /* Links */
