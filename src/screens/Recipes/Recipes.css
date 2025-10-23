@@ -4,9 +4,10 @@
   flex-direction: column;
   align-items: center;
   padding-top: 180px;
+  padding-bottom: 100px;
   /* push content below navbar */
   width: 100%;
-  min-height: 120rem;
+  min-height: auto;
 }
 
 .recipe-container {
@@ -49,7 +50,8 @@
 /* Mobile adjustments */
 @media (max-width: 480px) {
   .recipes-page-container {
-    padding-top: 120px;
+    padding-top: 80px;
+    height: auto;
     /* smaller navbar on mobile? */
   }
 

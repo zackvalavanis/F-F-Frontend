@@ -99,7 +99,7 @@ export function Recipes() {
   return (
     <div className='recipes-page-container'>
       <div className='recipe-top-container'>
-        <h1 style={{ fontSize: '50px' }}>Recipes</h1>
+        <h1 style={{ fontSize: '50px', padding: '20px' }}>Recipes</h1>
         <div className='search-recipes'>
           <Button
             variant="contained"

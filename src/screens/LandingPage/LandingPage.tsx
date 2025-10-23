@@ -150,7 +150,8 @@ export function LandingPage() {
                     height: '50px',
                     width: '20rem',
                     fontSize: '20px',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    color: 'white'
                   }}>
                     <option value="">-- Select a category --</option>
                     {categories.map((cat, idx) => (
