@@ -18,6 +18,7 @@ export function LandingPage() {
   const [category, setCategory] = useState<string>('');
   console.log(recipeId)
 
+  console.log(user.user_id)
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(event.target.value);
@@ -39,7 +40,7 @@ export function LandingPage() {
       const res = await fetch(`${api}/recipes/generate_from_ingredients`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ingredients, servings, category, save: true })
+        body: JSON.stringify({ ingredients, servings, category, user_id: user?.user_id, save: true })
       });
 
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
