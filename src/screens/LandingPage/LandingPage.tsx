@@ -72,7 +72,7 @@ export function LandingPage() {
         {!showSecond && (
           <Player
             autoplay
-            speed={6}
+            speed={4}
             src={prepareFood}
             loop={false}
             className="lottie-player"
@@ -153,7 +153,7 @@ export function LandingPage() {
                     alignItems: 'center',
                     color: 'white'
                   }}>
-                    <option value="">-- Select a category --</option>
+                    <option style={{ color: 'white' }} value="">-- Select a category --</option>
                     {categories.map((cat, idx) => (
                       <option key={idx} value={cat}>
                         {cat}
