@@ -1,9 +1,9 @@
-/* Navbar container */
 .navbar-container {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 200px;
+  height: 25vh;
+  /* 25% of viewport height */
   background-color: transparent;
   display: flex;
   justify-content: center;
@@ -12,10 +12,10 @@
   transition: all 0.3s ease;
 }
 
-/* Navbar when scrolled */
 .navbar-scrolled {
   background-color: #fff;
-  height: 90px;
+  height: 12vh;
+  /* shrinks on scroll */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   font-size: 2rem;
 }
@@ -129,7 +129,7 @@
   .mobile-hamburger {
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 17px;
   }
 
   /* Navbar links hidden by default */
