@@ -1,25 +1,28 @@
 .navbar-container {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  height: calc(20vh + env(safe-area-inset-top));
-  /* extra space for notch */
+  height: calc(200px + env(safe-area-inset-top));
   padding-top: env(safe-area-inset-top);
-  /* push content below notch */
-  background-color: transparent;
+  /* match your navbar */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
   transition: all 0.3s ease;
+  color: #f37136;
+  /* your text color */
 }
 
+/* Navbar when scrolled */
 .navbar-scrolled {
-  height: calc(10vh + env(safe-area-inset-top));
+  height: calc(90px + env(safe-area-inset-top));
   background-color: #fff;
+  /* match scrolled navbar */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  font-size: 2rem;
 }
+
 
 /* Navbar links wrapper */
 .navbar-links {
