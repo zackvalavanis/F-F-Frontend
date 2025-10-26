@@ -21,6 +21,8 @@ export function LandingPage() {
   const [category, setCategory] = useState<string>('');
   const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"];
 
+  console.log(user)
+
   const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(event.target.value);
   };
@@ -114,7 +116,7 @@ export function LandingPage() {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: '90vh',
+              minHeight: '70vh',
               width: '100%',
             }}>
 
@@ -132,85 +134,92 @@ export function LandingPage() {
                 <h1>Welcome {user.name}</h1>
               </div>
             )}
-
-            <Box
-              sx={{
-                minHeight: '60vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: { xs: '350px', sm: '400px', md: '500px' },
-              }}
-            >
-              <Paper
-                elevation={7}
+            {user ? (
+              <Box
                 sx={{
+                  minHeight: '60vh',
                   display: 'flex',
-                  p: 3,
-                  width: '100%',
-                  justifyContent: 'center',
                   alignItems: 'center',
-                  borderRadius: 3,
-                  boxShadow: '0px 4px 20px rgba(0,0,0,0.1)',
-                  flexDirection: { xs: 'column', sm: 'row' },
+                  justifyContent: 'center',
+                  width: { xs: '350px', sm: '400px', md: '500px' },
                 }}
               >
-                <form className='generate-new-recipe-container' onSubmit={handleRecipeGenerator}>
-                  <select id="category" value={category} onChange={handleChangeCategory} style={{
+                <Paper
+                  elevation={7}
+                  sx={{
                     display: 'flex',
+                    p: 3,
+                    width: '100%',
                     justifyContent: 'center',
-                    borderRadius: '20px',
-                    backgroundColor: '#ff7043',
-                    textAlign: 'center',
-                    height: '50px',
-                    width: '20rem',
-                    fontSize: '20px',
                     alignItems: 'center',
-                    color: 'white'
-                  }}>
-                    <option style={{ color: 'white' }} value="">-- Select a category --</option>
-                    {categories.map((cat, idx) => (
-                      <option key={idx} value={cat}>{cat}</option>
-                    ))}
-                  </select>
+                    borderRadius: 3,
+                    boxShadow: '0px 4px 20px rgba(0,0,0,0.1)',
+                    flexDirection: { xs: 'column', sm: 'row' },
+                  }}
+                >
+                  <form className='generate-new-recipe-container' onSubmit={handleRecipeGenerator}>
+                    <select id="category" value={category} onChange={handleChangeCategory} style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      borderRadius: '20px',
+                      backgroundColor: '#ff7043',
+                      textAlign: 'center',
+                      height: '50px',
+                      width: '20rem',
+                      fontSize: '20px',
+                      alignItems: 'center',
+                      color: 'white'
+                    }}>
+                      <option style={{ color: 'white' }} value="">-- Select a category --</option>
+                      {categories.map((cat, idx) => (
+                        <option key={idx} value={cat}>{cat}</option>
+                      ))}
+                    </select>
 
-                  <TextField
-                    name="ingredients"
-                    type="text"
-                    placeholder="e.g., chicken, garlic, lemon"
-                    sx={{ mt: 2, width: '100%' }}
-                  />
+                    <TextField
+                      name="ingredients"
+                      type="text"
+                      placeholder="e.g., chicken, garlic, lemon"
+                      sx={{ mt: 2, width: '100%' }}
+                    />
 
-                  <TextField
-                    name='servings'
-                    type='number'
-                    placeholder='How many servings'
-                    sx={{ mt: 2, width: '100%' }}
-                  />
+                    <TextField
+                      name='servings'
+                      type='number'
+                      placeholder='How many servings'
+                      sx={{ mt: 2, width: '100%' }}
+                    />
 
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    sx={{ mt: 2, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
-                  >
-                    Ask AI to Generate a New Recipe
-                  </Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      fullWidth
+                      sx={{ mt: 2, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
+                    >
+                      Ask AI to Generate a New Recipe
+                    </Button>
 
-                  <Button
-                    onClick={() => navigate('/loading')}
-                    variant="contained"
-                    fullWidth
-                    sx={{ mt: 1, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
-                  >
-                    Find a Recipe
-                  </Button>
-                </form>
-              </Paper>
-            </Box>
+                    <Button
+                      onClick={() => navigate('/loading')}
+                      variant="contained"
+                      fullWidth
+                      sx={{ mt: 1, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
+                    >
+                      Find a Recipe
+                    </Button>
+                  </form>
+                </Paper>
+              </Box>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <h1>Log in to generate recipes</h1>
+                <Button onClick={() => navigate('/login')} sx={{ width: 400, backgroundColor: '#ff7043', marginTop: 5 }} variant="contained">Log In</Button>
+                <Button onClick={() => navigate('/recipes')} variant="contained" sx={{ width: 400, backgroundColor: '#ff7043', marginTop: 5 }}>Check out other users recipes</Button>
+              </div>
+            )}
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 }

@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 export interface User {
-  user_id: any;
+  user_id: number;
   id: number;
   name: string;
   email: string;
