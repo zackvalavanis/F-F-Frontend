@@ -115,7 +115,7 @@ export function Recipes({ onSearch }: { onSearch: (query: string) => void }) {
     setFilteredRecipes(filtered);
     setCurrentPage(1);
 
-    onSearch(value);
+    onSearch?.(value);
   };
 
   // Pagination logic
