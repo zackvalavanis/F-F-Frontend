@@ -41,7 +41,7 @@ export function Favorites() {
 
   return (
     <div className='favorites-page'>
-      <h1 style={{ color: '#ff7043', marginBottom: '40px' }}>Our Communities Favorite Recipes</h1>
+      <h1 style={{ textAlign: 'center', color: '#ff7043', marginBottom: '40px' }}>Our Communities Favorite Recipes</h1>
       <div className='recipe-container-favorites'>
         {favorites.map(favorite => (
           <RecipeReviewCard key={favorite.id} recipe={favorite} />

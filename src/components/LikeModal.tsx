@@ -24,8 +24,9 @@ export function LikeModal({ show, onClose, children }: LikeModalProps) {
           bgcolor: 'background.paper',
           boxShadow: 24,
           borderRadius: 2,
-          p: 4,
+          p: 3,
           width: { xs: 300, sm: 400 },
+          height: { xs: 580, sm: 300 },
         }}
       >
         <Typography id="like-modal-title" variant="h6" gutterBottom>

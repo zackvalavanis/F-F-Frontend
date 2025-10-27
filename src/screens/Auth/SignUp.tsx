@@ -33,9 +33,7 @@ export function SignUp() {
     } catch (error) {
       console.log(error)
     }
-
   }
-
 
   return (
     <div className='sign-up-page'>

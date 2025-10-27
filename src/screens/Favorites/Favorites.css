@@ -2,14 +2,40 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 2rem;
-  min-height: 100rem;
-  margin-top: 10rem;
+
+  min-height: 50rem;
+  /* default for small screens */
 }
 
 .recipe-container-favorites {
   display: flex;
+  justify-content: center;
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   align-items: stretch;
+}
+
+
+@media (min-width: 600px) {
+  .favorites-page {
+    min-height: 80rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .favorites-page h1 {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+
+  }
+
+  .recipe-container-favorites {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

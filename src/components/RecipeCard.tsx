@@ -223,7 +223,7 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
       </Card>
       <LikeModal show={modalShowing} onClose={() => setModalShowing(false)}>
         <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', color: 'black' }}>
-          <h1 style={{ marginBottom: '20px', textAlign: 'center' }}>Rate the Dish</h1>
+          <h1 style={{ fontSize: '40px', marginBottom: '20px', textAlign: 'center' }}>Rate the Dish</h1>
           <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
             {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => (
               <Button
