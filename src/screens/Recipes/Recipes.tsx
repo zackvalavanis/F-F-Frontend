@@ -33,7 +33,7 @@ interface Recipe {
   };
 }
 
-export function Recipes({ onSearch }: { onSearch: (query: string) => void }) {
+export function Recipes({ onSearch }: { onSearch?: (query: string) => void }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [category, setCategory] = useState('');
