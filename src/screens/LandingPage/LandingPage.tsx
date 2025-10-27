@@ -213,8 +213,8 @@ export function LandingPage() {
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <h1>Log in to generate recipes</h1>
-                <Button onClick={() => navigate('/login')} sx={{ width: 400, backgroundColor: '#ff7043', marginTop: 5 }} variant="contained">Log In</Button>
-                <Button onClick={() => navigate('/recipes')} variant="contained" sx={{ width: 400, backgroundColor: '#ff7043', marginTop: 5 }}>Check out other users recipes</Button>
+                <Button onClick={() => navigate('/login')} sx={{ width: { xs: 200, sm: 400 }, backgroundColor: '#ff7043', marginTop: 5 }} variant="contained">Log In</Button>
+                <Button onClick={() => navigate('/recipes')} variant="contained" sx={{ width: { xs: 200, sm: 400 }, backgroundColor: '#ff7043', marginTop: 5 }}>Check out other users recipes</Button>
               </div>
             )}
           </div>
