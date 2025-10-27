@@ -10,6 +10,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  TextField,
 } from '@mui/material'
 
 interface Recipe {
@@ -126,14 +127,29 @@ export function Recipes({ onSearch }: { onSearch: (query: string) => void }) {
   return (
     <div className='recipes-page-container'>
       <div className='recipe-top-container'>
-        <input
+        <TextField
+          fullWidth
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '300px',
+            maxWidth: '500px',
+            maxHeight: '40px',
+            borderRadius: '20px',
+            padding: '20px',
+            '& .MuiInputBase-root': {
+              borderRadius: '20px', // ensures inner input respects borderRadius
+              height: '50px',        // sets input height explicitly
+            }
+          }
+          }
           onChange={handleChange}
           value={searchQuery}
           type='text'
           placeholder='search'
         >
-
-        </input>
+        </TextField>
         <div className='search-recipes'>
           <Button
             variant="contained"

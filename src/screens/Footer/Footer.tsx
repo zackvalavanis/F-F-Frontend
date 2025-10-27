@@ -23,8 +23,11 @@ export function Footer() {
 
       <div className='footer-left-side'>
         <h1 onClick={() => navigate('/recipes')}>Recipes</h1>
-        <h1 onClick={() => navigate('/favorites')}>Favorites</h1>
+        <h1 onClick={() => navigate('/favorites')}>Favorite Recipes</h1>
+        <h1 onClick={() => navigate('/restaurants')}>Restaurants</h1>
+        <h1 onClick={() => navigate('/favorite-restaurants')}>Favorite Restaurants</h1>
       </div>
+
 
       <div>
         <Player
@@ -47,6 +50,7 @@ export function Footer() {
             <h1 onClick={() => navigate('/sign-up')}>Sign Up</h1>
             <h1 onClick={() => navigate('/login')}>Login</h1>
           </>
+
         )}
       </div>
     </div>

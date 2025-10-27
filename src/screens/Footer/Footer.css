@@ -1,31 +1,23 @@
 .footer-container {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  /* left | center | right */
   align-items: center;
   color: black;
-  flex: 1;
   background-color: #f37136;
   height: 300px;
-}
-
-.footer-left-side {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 0.5rem;
   text-align: center;
-  padding: 20px;
-  cursor: pointer;
+  gap: 20px;
 }
 
-
+.footer-left-side,
 .footer-right-side {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 20px;
+  justify-content: center;
+  align-items: center;
   font-size: 0.5rem;
-  text-align: center;
-  padding: 20px;
   cursor: pointer;
 }
 
@@ -34,35 +26,30 @@
   transform: scale(1.05);
 }
 
+/* center section is just a regular div; text-align: center handles alignment */
+.footer-container>div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive */
 @media (max-width: 480px) {
   .footer-container {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
     height: auto;
-    /* shrink height for mobile */
     padding: 10px;
-    overflow-x: hidden;
-    /* prevent horizontal scroll */
   }
 
   .footer-left-side,
   .footer-right-side {
     flex-direction: column;
     gap: 10px;
-    padding: 5px;
     font-size: 0.8rem;
   }
 
-  .footer-right-side h1 {
-    font-size: 0.7rem;
-    text-align: center;
-  }
-
-  .footer-left-side h1 {
-    font-size: 0.7rem;
-  }
-
-  /* Center the Lottie animation */
   .footer-container>div:nth-child(2) {
     margin: 10px 0;
   }
