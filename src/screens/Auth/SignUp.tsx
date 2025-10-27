@@ -1,8 +1,10 @@
 import { Box, TextField, Button, Typography, Paper } from '@mui/material';
 import './SignUp.css'
+import { useNavigate } from 'react-router-dom';
 
 export function SignUp() {
   const api = import.meta.env.VITE_BACKEND_HOST
+  const navigate = useNavigate()
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -22,6 +24,12 @@ export function SignUp() {
       console.log(res)
       const data = await res.json()
       console.log('Response:', data)
+      if (res.ok) {
+        alert('User created')
+        navigate('/')
+      } else {
+        alert('error: User not created')
+      }
     } catch (error) {
       console.log(error)
     }
