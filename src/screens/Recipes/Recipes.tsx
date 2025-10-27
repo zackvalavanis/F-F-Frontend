@@ -32,13 +32,14 @@ interface Recipe {
   };
 }
 
-export function Recipes() {
+export function Recipes({ onSearch }: { onSearch: (query: string) => void }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [category, setCategory] = useState('');
   const [modalShow, setModalShow] = useState(false);
   const [difficulty, setDifficulty] = useState('');
   const [rating, setRating] = useState('');
+  const [searchQuery, setSearchQuery] = useState('')
 
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -65,17 +66,25 @@ export function Recipes() {
   console.log(recipes)
 
   const handleSearch = () => {
-    const filtered = recipes.filter(r => {
+    const filtered = recipes.filter((r) => {
       let match = true;
-      if (category) {
-        match = match && r.category === category;
+
+      if (category) match = match && r.category === category;
+      if (rating) match = match && r.average_rating === Number(rating);
+      if (difficulty) match = match && r.difficulty === Number(difficulty);
+
+      // NEW: check if searchQuery matches title, description, or tags
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        match =
+          match &&
+          (
+            r.title?.toLowerCase().includes(q) ||
+            r.description?.toLowerCase().includes(q) ||
+            r.tags?.toLowerCase().includes(q)
+          );
       }
-      if (rating) {
-        match = match && r.average_rating === Number(rating)
-      }
-      if (difficulty) {
-        match = match && r.difficulty === Number(difficulty);
-      }
+
       return match;
     });
 
@@ -90,6 +99,24 @@ export function Recipes() {
     setCurrentPage(1);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    const filtered = recipes.filter((r) => {
+      const q = value.toLowerCase();
+      return (
+        r.title?.toLowerCase().includes(q) ||
+        r.description?.toLowerCase().includes(q) ||
+        r.tags?.toLowerCase().includes(q)
+      );
+    });
+    setFilteredRecipes(filtered);
+    setCurrentPage(1);
+
+    onSearch(value);
+  };
+
   // Pagination logic
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
@@ -99,7 +126,14 @@ export function Recipes() {
   return (
     <div className='recipes-page-container'>
       <div className='recipe-top-container'>
-        <h1 style={{ fontSize: '50px', padding: '20px' }}>Recipes</h1>
+        <input
+          onChange={handleChange}
+          value={searchQuery}
+          type='text'
+          placeholder='search'
+        >
+
+        </input>
         <div className='search-recipes'>
           <Button
             variant="contained"
