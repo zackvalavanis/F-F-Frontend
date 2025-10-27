@@ -30,7 +30,15 @@ function App() {
       children: [
         { path: '/', element: <LandingPage /> },
         { path: '/login', element: <Login /> },
-        { path: '/recipes', element: <Recipes /> },
+        {
+          path: '/recipes', element: (
+            <Recipes
+              onSearch={(query: string) => {
+                console.log("Search query:", query);
+              }}
+            />
+          )
+        },
         { path: '/recipes/:id', element: <RecipesShow /> },
         { path: '/favorites', element: <Favorites /> },
         { path: '/restaurants', element: <Restaurants /> },
