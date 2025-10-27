@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, TextField, Button, Typography, Paper } from '@mui/material';
+import { Box, TextField, Button, Typography, Paper, InputAdornment, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import './Login.css'
 import { useNavigate } from 'react-router-dom';
 import useUser from '../../components/Context/useUser.tsx';
@@ -13,6 +14,9 @@ export function Login() {
     email: '',
     password: '',
   });
+  const [showPassword, setShowPassword] = useState(false)
+
+  const handleClickShowPassword = () => setShowPassword((prev) => !prev);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,6 +37,8 @@ export function Login() {
         setUser(data)
         localStorage.setItem('jwt', data.jwt)
         navigate('/')
+      } else {
+        alert('Incorrect Email or Password')
       }
     } catch (error) {
       console.log(error)
@@ -78,11 +84,24 @@ export function Login() {
             <TextField
               fullWidth
               label="Password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               name="password"
               value={formData.password}
               onChange={handleChange}
               margin="normal"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                      aria-label="toggle password visibility"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
 
             <Button
