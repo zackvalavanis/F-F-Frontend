@@ -224,7 +224,7 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
       <LikeModal show={modalShowing} onClose={() => setModalShowing(false)}>
         <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', color: 'black' }}>
           <h1 style={{ marginBottom: '20px', textAlign: 'center' }}>Rate the Dish</h1>
-          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
             {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => (
               <Button
                 key={num}
@@ -232,18 +232,30 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
                 color={rating === num ? 'primary' : 'inherit'}
                 onClick={() => setRating(num)}
                 sx={{
-                  minWidth: 70,
-                  height: 70,
+                  width: { xs: 100, sm: 70 },
+                  height: { xs: 80, sm: 70 },
                   fontWeight: 600,
                   borderRadius: '8px',
                   transition: '0.2s',
+                  backgroundColor: rating === num ? '#ff7043' : '#fff', // selected vs unselected
+                  color: rating === num ? 'white' : 'black',
+                  boxShadow: rating === num
+                    ? '0px 4px 12px rgba(255, 112, 67, 0.6)' // stronger shadow for selected
+                    : '0px 2px 6px rgba(0,0,0,0.1)',          // subtle shadow for unselected
+                  '&:hover': {
+                    backgroundColor: rating === num ? '#ff5722' : '#ffe0d6',
+                    boxShadow: rating === num
+                      ? '0px 6px 16px rgba(255, 87, 34, 0.6)'
+                      : '0px 4px 8px rgba(0,0,0,0.15)',
+                  },
+                  border: 'none', // removes border entirely
                 }}
               >
                 {num}
               </Button>
             ))}
           </Box>
-          <Button onClick={() => handleRateRecipe(rating!)} style={{ marginTop: '20px' }} variant='contained'>
+          <Button onClick={() => handleRateRecipe(rating!)} style={{ marginTop: '20px', backgroundColor: '#f37136' }} variant='contained'>
             Submit Rating
           </Button>
         </div>
