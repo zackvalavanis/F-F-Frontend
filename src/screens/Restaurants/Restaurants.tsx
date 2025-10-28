@@ -17,7 +17,7 @@ export function Restaurants() {
   const api = import.meta.env.VITE_BACKEND_HOST;
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const perPage = 9; // 3x3 grid
+  const perPage = 3; // 3x3 grid
   const navigate = useNavigate()
   const [price, setPrice] = useState('')
   const [minRating, setMinRating] = useState('')
@@ -73,8 +73,8 @@ export function Restaurants() {
   }
 
   return (
-    <div style={{ marginTop: '10rem' }}>
-      <Box sx={{ minHeight: '100vh', p: 4 }}>
+    <div style={{ marginTop: '8rem' }}>
+      <Box sx={{ minHeight: { xs: '50vh', sm: '100vh' }, p: 4 }}>
         <Typography
           variant="h3"
           sx={{ display: 'flex', flexDirection: 'column', mb: 4, justifyContent: 'center', alignItems: 'center', textAlign: 'center', color: '#ff7043', fontWeight: 600 }}
@@ -83,7 +83,7 @@ export function Restaurants() {
           {/* <Button onClick={() => navigate('/create-restaurant')} variant='contained'>New Restaurant</Button> */}
         </Typography>
 
-        <Box component="form" sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4, flexWrap: 'wrap' }}>
+        <Box component="form" sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'center', gap: 2, mb: 4, flexWrap: 'wrap' }}>
           <TextField
             label="Price"
             select
@@ -119,17 +119,17 @@ export function Restaurants() {
               }
             }}
           />
-          <Button variant="contained" onClick={fetchRestaurants}>
+          <Button sx={{ backgroundColor: '#ff7043' }} variant="contained" onClick={fetchRestaurants}>
             Apply Filters
           </Button>
-          <Button variant="contained" onClick={resetFilters}>
+          <Button sx={{ backgroundColor: '#ff7043' }} variant="contained" onClick={resetFilters}>
             Clear Filters
           </Button>
         </Box>
 
         <Grid container spacing={4} justifyContent="center">
           {currentRestaurants.map((restaurant) => (
-            <Grid key={restaurant.id} spacing={4} justifyContent="center">
+            <Grid sx={{ height: { xs: '200px', sm: '400px' }, display: 'flex', flexDirection: 'column' }} key={restaurant.id} spacing={4} justifyContent="center">
               <Paper
                 onClick={() => navigate(`/restaurants/${restaurant.id}`, { state: restaurant })}
                 elevation={3}
@@ -159,7 +159,7 @@ export function Restaurants() {
                   {restaurant.category}
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#ff7043', fontWeight: 500 }}>
-                  Rating: {restaurant.rating} ⭐
+                  {restaurant.rating ? `Rating: ${restaurant.rating} ⭐` : 'Not yet rated'}
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#ff7043', fontWeight: 500 }}>
                   Price: {'$'.repeat(restaurant.price)}

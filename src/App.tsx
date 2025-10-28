@@ -15,6 +15,7 @@ import { LoadingScreen } from './screens/Loading/LoadingScreen'
 import { RestaurantShow } from './screens/Restaurants/RestaurantShow'
 import { SignUp } from './screens/Auth/SignUp'
 import { CreateNewRestaurant } from './screens/Restaurants/CreateNewRestaurant'
+import { FavoriteRestaurants } from './screens/Restaurants/FavoriteRestaurants'
 
 function App() {
   const router = createBrowserRouter([
@@ -47,6 +48,7 @@ function App() {
         { path: '/restaurants/:id', element: <RestaurantShow /> },
         { path: '/create-restaurant', element: <CreateNewRestaurant /> },
         { path: '/sign-up', element: <SignUp /> },
+        { path: '/favorite-restaurants', element: <FavoriteRestaurants /> }
       ]
     },
     { path: '/loading', element: <LoadingScreen /> },
