@@ -44,7 +44,7 @@ export function Recipes({ onSearch }: { onSearch?: (query: string) => void }) {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const recipesPerPage = 12; // 3x3 grid
+  const recipesPerPage = 8; // 3x3 grid
 
   const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"];
   const difficulties = [1, 2, 3, 4, 5]
@@ -126,6 +126,7 @@ export function Recipes({ onSearch }: { onSearch?: (query: string) => void }) {
 
   return (
     <div className='recipes-page-container'>
+      <h1 style={{ color: '#ff7043' }}>Recipes</h1>
       <div className='recipe-top-container'>
         <TextField
           fullWidth
@@ -177,7 +178,7 @@ export function Recipes({ onSearch }: { onSearch?: (query: string) => void }) {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 400,
+            width: { xs: 300, sm: 400 },
             bgcolor: 'background.paper',
             borderRadius: 2,
             boxShadow: 24,
@@ -242,8 +243,8 @@ export function Recipes({ onSearch }: { onSearch?: (query: string) => void }) {
 
 
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
-            <Button onClick={() => setModalShow(false)}>Cancel</Button>
-            <Button variant="contained" onClick={handleSearch}>
+            <Button sx={{ color: '#ff7043' }} onClick={() => setModalShow(false)}>Cancel</Button>
+            <Button sx={{ backgroundColor: '#ff7043' }} variant="contained" onClick={handleSearch}>
               Apply
             </Button>
           </Box>
@@ -267,24 +268,27 @@ export function Recipes({ onSearch }: { onSearch?: (query: string) => void }) {
         ))}
       </div>
 
-      {/* PAGINATION */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 2 }}>
-        <Button
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage(prev => prev - 1)}
-        >
-          Previous
-        </Button>
-        <Typography sx={{ display: 'flex', alignItems: 'center' }}>
-          Page {currentPage} of {totalPages}
-        </Typography>
-        <Button
-          disabled={currentPage === totalPages || totalPages === 0}
-          onClick={() => setCurrentPage(prev => prev + 1)}
-        >
-          Next
-        </Button>
-      </Box>
+      {totalPages > 1 ? (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 2 }}>
+          <Button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(prev => prev - 1)}
+          >
+            Previous
+          </Button>
+          <Typography sx={{ display: 'flex', alignItems: 'center' }}>
+            Page {currentPage} of {totalPages}
+          </Typography>
+          <Button
+            disabled={currentPage === totalPages || totalPages === 0}
+            onClick={() => setCurrentPage(prev => prev + 1)}
+          >
+            Next
+          </Button>
+        </Box>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

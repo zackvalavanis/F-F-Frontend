@@ -17,7 +17,7 @@ export function Restaurants() {
   const api = import.meta.env.VITE_BACKEND_HOST;
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const perPage = 3; // 3x3 grid
+  const perPage = 4; // 3x3 grid
   const navigate = useNavigate()
   const [price, setPrice] = useState('')
   const [minRating, setMinRating] = useState('')
@@ -169,24 +169,28 @@ export function Restaurants() {
           ))}
         </Grid>
 
-        {/* Pagination buttons */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 2 }}>
-          <Button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((prev) => prev - 1)}
-          >
-            Previous
-          </Button>
-          <Typography sx={{ display: 'flex', alignItems: 'center' }}>
-            Page {currentPage} of {totalPages}
-          </Typography>
-          <Button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((prev) => prev + 1)}
-          >
-            Next
-          </Button>
-        </Box>
+
+        {totalPages > 1 ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 2 }}>
+            <Button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+            >
+              Previous
+            </Button>
+            <Typography sx={{ display: 'flex', alignItems: 'center' }}>
+              Page {currentPage} of {totalPages}
+            </Typography>
+            <Button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
+              Next
+            </Button>
+          </Box>
+        ) : (
+          <></>
+        )}
       </Box>
     </div>
   );
