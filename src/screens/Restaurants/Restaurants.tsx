@@ -98,6 +98,7 @@ export function Restaurants() {
             <MenuItem value="$$$$">$$$$</MenuItem>
           </TextField>
           <TextField
+            sx={{ minWidth: 150 }}
             label="Min Rating"
             type="number"
             value={minRating}
