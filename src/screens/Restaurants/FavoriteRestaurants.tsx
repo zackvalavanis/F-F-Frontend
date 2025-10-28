@@ -39,6 +39,7 @@ export function FavoriteRestaurants() {
 
   return (
     <div className='favorite-restaurants-page'>
+      <h1 style={{ marginBottom: '100px', color: '#ff7043' }}>Our Favorites</h1>
       <Grid container spacing={4} justifyContent="center">
         {sortedRestaurants.map((restaurant) => (
           <Grid sx={{ height: { xs: '200px', sm: '400px' }, display: 'flex', flexDirection: 'column' }} key={restaurant.id} spacing={4} justifyContent="center">
