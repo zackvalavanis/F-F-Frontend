@@ -16,6 +16,7 @@ interface Recipe {
   directions: string;
   servings: number;
   tags: string;
+  rating: number;
   title: string;
   images?: string[];
 }
@@ -61,12 +62,9 @@ export function RecipesShow() {
   };
 
   return (
-    <Box className="recipe-show-container" sx={{ padding: 4, maxWidth: 1000, margin: '0 auto' }}>
-      <Box className="rating-container" sx={{ marginBottom: 2 }}>
-        <Typography variant="h6">{recipe.average_rating} ⭐</Typography>
-      </Box>
+    <Box className="recipe-show-container" sx={{ padding: { sm: 20, xs: 4 }, maxWidth: 1000, margin: '0 auto' }}>
 
-      <Typography variant="h4" component="h1" gutterBottom>
+      <Typography sx={{ textAlign: 'center' }} variant="h4" component="h1" gutterBottom>
         {recipe.title}
       </Typography>
 
@@ -86,6 +84,9 @@ export function RecipesShow() {
         </Box>
       )}
 
+      <Box className="rating-container" sx={{ marginBottom: 2 }}>
+        <Typography variant="h6">{recipe.average_rating ? `Rating: ${recipe.average_rating} ⭐` : ""} </Typography>
+      </Box>
       <Typography variant="body1" sx={{ fontSize: 18, textAlign: 'center', marginBottom: 3 }}>
         {recipe.description}
       </Typography>

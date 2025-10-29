@@ -1,14 +1,33 @@
 .recipe-show-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-top: 200px;
+  /* start from top on mobile */
   align-items: center;
   flex-direction: column;
   color: #ff7043;
-  min-height: 80em;
-  height: 120rem;
+  min-height: 100vh;
+  /* use viewport height instead of fixed em/rem */
+  padding: 10rem;
+  box-sizing: border-box;
 }
 
 .rating-container {
   display: flex;
-  align-items: left;
+  justify-content: flex-start;
+  /* align ratings left */
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .recipe-show-container {
+    padding: 1rem;
+  }
+
+  .rating-container {
+    flex-wrap: wrap;
+    /* wrap stars if needed */
+  }
 }

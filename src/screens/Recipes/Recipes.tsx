@@ -44,7 +44,7 @@ export function Recipes({ onSearch }: { onSearch?: (query: string) => void }) {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const recipesPerPage = 8; // 3x3 grid
+  const recipesPerPage = 9; // 3x3 grid
 
   const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"];
   const difficulties = [1, 2, 3, 4, 5]
@@ -256,11 +256,12 @@ export function Recipes({ onSearch }: { onSearch?: (query: string) => void }) {
         className='recipe-container'
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gridAutoRows: 'auto',
-          gap: '2rem', // smaller gap for mobile
+          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+          gap: '6rem',
           width: '100%',
-          justifyItems: 'center', // center cards
+          maxWidth: '1200px',
+          margin: '0 auto',
+          justifyItems: 'center',
         }}
       >
         {currentRecipes.map((recipe) => (
