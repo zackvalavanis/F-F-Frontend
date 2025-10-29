@@ -1,21 +1,30 @@
 .recipe-show-container {
   display: flex;
   justify-content: flex-start;
-  margin-top: 200px;
-  /* start from top on mobile */
+  margin-top: 1500px;
+  /* you might want to reduce this */
   align-items: center;
   flex-direction: column;
   color: #ff7043;
+  background-color: white;
+  border-radius: 20px;
   min-height: 100vh;
-  /* use viewport height instead of fixed em/rem */
   padding: 10rem;
   box-sizing: border-box;
+
+  /* Shadow */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Optional: hover shadow effect */
+.recipe-show-container:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 16px 48px rgba(0, 0, 0, 0.1);
 }
 
 .rating-container {
   display: flex;
   justify-content: flex-start;
-  /* align ratings left */
   align-items: center;
   gap: 0.5rem;
 }
@@ -28,6 +37,5 @@
 
   .rating-container {
     flex-wrap: wrap;
-    /* wrap stars if needed */
   }
 }

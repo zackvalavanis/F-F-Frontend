@@ -62,13 +62,12 @@ export function RecipesShow() {
   };
 
   return (
-    <Box className="recipe-show-container" sx={{ padding: { sm: 20, xs: 4 }, maxWidth: 1000, margin: '0 auto' }}>
-
+    <Box className="recipe-show-container" sx={{ marginTop: { sm: 20, xs: 10 }, marginBottom: { sm: 20, xs: 20 }, padding: { sm: 10, xs: 4 }, maxWidth: { sm: 1000, xs: 380 }, margin: '0 auto' }}>
       <Typography sx={{ textAlign: 'center' }} variant="h4" component="h1" gutterBottom>
         {recipe.title}
       </Typography>
 
-      <Box sx={{ display: 'flex', gap: 3, marginBottom: 2 }}>
+      <Box sx={{ display: 'flex', gap: 3, marginBottom: 2, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
         <Typography>Prep Time: {recipe.prep_time} min</Typography>
         <Typography>Cook Time: {recipe.cook_time} min</Typography>
         <Typography>Total Time: {totalTime} min</Typography>
