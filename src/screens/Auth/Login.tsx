@@ -29,6 +29,7 @@ export function Login() {
       const res = await fetch(`${api}/sessions.json`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(formData)
       })
       if (res.ok) {
