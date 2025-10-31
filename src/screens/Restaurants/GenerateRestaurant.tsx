@@ -17,13 +17,24 @@ export function GenerateRestaurant() {
   const [showSecond, setShowSecond] = useState(false);
   const [loading, setLoading] = useState(false);
   const api = import.meta.env.VITE_BACKEND_HOST;
-  const [category, setCategory] = useState<string>('');
-  const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"];
 
-  console.log(user)
+  const [category, setCategory] = useState<string>('');
+  const [price, setPrice] = useState<string>('');
+  const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"];
+  const prices = ["$", "$$", "$$$", "$$$$"];
+  const priceMapping: Record<string, number> = {
+    '$': 1,
+    '$$': 2,
+    '$$$': 3,
+    '$$$$': 4,
+  };
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(event.target.value);
+  };
+
+  const handleChangePrice = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setPrice(event.target.value);
   };
 
   const handleRecipeGenerator = async (e: FormEvent<HTMLFormElement>) => {
@@ -37,28 +48,25 @@ export function GenerateRestaurant() {
     }
 
     const form = e.currentTarget;
-    const ingredientsInput = form.elements.namedItem('ingredients') as HTMLInputElement | null;
-    const servingsInput = form.elements.namedItem('servings') as HTMLInputElement | null;
+    const cityInput = form.elements.namedItem('city') as HTMLInputElement | null;
 
-    if (!ingredientsInput) {
-      alert("Ingredients field is required.");
+    if (!cityInput) {
+      alert("City field is required.");
       setLoading(false);
       return;
     }
 
-    const ingredients = ingredientsInput.value.split(',').map(s => s.trim());
-    const servings = servingsInput ? parseInt(servingsInput.value) || 1 : 1;
+    const city = cityInput.value.trim();
 
     try {
-      const res = await fetch(`${api}/recipes/generate_from_ingredients`, {
+      const res = await fetch(`${api}/restaurants/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ingredients,
-          servings,
+          city,
           category,
-          user_id: user.user_id,
-          save: true
+          price: priceMapping[price],
+          user_id: user.user_id
         })
       });
 
@@ -69,11 +77,11 @@ export function GenerateRestaurant() {
       }
 
       const json = await res.json();
-      console.log("Generated recipe:", json);
-      navigate('/recipes');
+      console.log("Generated restaurant:", json);
+      navigate('/restaurants'); // Assuming you want to go to restaurants page
     } catch (error) {
       console.error(error);
-      alert("Failed to generate recipe. Check console for details.");
+      alert("Failed to generate restaurant. Check console for details.");
     } finally {
       setLoading(false);
     }
@@ -81,7 +89,6 @@ export function GenerateRestaurant() {
 
   return (
     <div className="landing-page">
-      {/* Full-screen loading overlay */}
       {loading && (
         <div className="loading-overlay">
           <Player
@@ -109,7 +116,7 @@ export function GenerateRestaurant() {
         )}
 
         {showSecond && (
-          <div className="second-animation-container"
+          <div
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -117,8 +124,8 @@ export function GenerateRestaurant() {
               justifyContent: 'center',
               minHeight: '70vh',
               width: '100%',
-            }}>
-
+            }}
+          >
             <Player
               autoplay
               speed={1}
@@ -128,11 +135,8 @@ export function GenerateRestaurant() {
               className="lottie-player"
             />
 
-            {user && (
-              <div>
-                <h1>Find a new Restaurant!</h1>
-              </div>
-            )}
+            {user && <h1>Find a new Restaurant!</h1>}
+
             {user ? (
               <Box
                 sx={{
@@ -152,23 +156,25 @@ export function GenerateRestaurant() {
                     justifyContent: 'center',
                     alignItems: 'center',
                     borderRadius: 3,
-                    boxShadow: '0px 4px 20px rgba(0,0,0,0.1)',
                     flexDirection: { xs: 'column', sm: 'row' },
                   }}
                 >
                   <form className='generate-new-recipe-container' onSubmit={handleRecipeGenerator}>
-                    <select id="category" value={category} onChange={handleChangeCategory} style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      borderRadius: '20px',
-                      backgroundColor: '#ff7043',
-                      textAlign: 'center',
-                      height: '50px',
-                      width: '20rem',
-                      fontSize: '20px',
-                      alignItems: 'center',
-                      color: 'white'
-                    }}>
+                    <select
+                      value={category}
+                      onChange={handleChangeCategory}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        borderRadius: '20px',
+                        backgroundColor: '#ff7043',
+                        textAlign: 'center',
+                        height: '50px',
+                        width: '20rem',
+                        fontSize: '20px',
+                        color: 'white',
+                      }}
+                    >
                       <option style={{ color: 'white' }} value="">-- Select a category --</option>
                       {categories.map((cat, idx) => (
                         <option key={idx} value={cat}>{cat}</option>
@@ -176,18 +182,33 @@ export function GenerateRestaurant() {
                     </select>
 
                     <TextField
-                      name="ingredients"
+                      name="city"
                       type="text"
-                      placeholder="e.g., chicken, garlic, lemon"
+                      placeholder="City"
                       sx={{ mt: 2, width: '100%' }}
                     />
 
-                    <TextField
-                      name='servings'
-                      type='number'
-                      placeholder='How many servings'
-                      sx={{ mt: 2, width: '100%' }}
-                    />
+                    <select
+                      value={price}
+                      onChange={handleChangePrice}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        borderRadius: '20px',
+                        backgroundColor: '#ff7043',
+                        textAlign: 'center',
+                        height: '50px',
+                        width: '20rem',
+                        fontSize: '20px',
+                        color: 'white',
+                        marginTop: '1rem',
+                      }}
+                    >
+                      <option style={{ color: 'white' }} value="">-- Select a price --</option>
+                      {prices.map((p, idx) => (
+                        <option key={idx} value={p}>{p}</option>
+                      ))}
+                    </select>
 
                     <Button
                       type="submit"
@@ -195,30 +216,33 @@ export function GenerateRestaurant() {
                       fullWidth
                       sx={{ mt: 2, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
                     >
-                      Ask AI to Generate a New Recipe
-                    </Button>
-
-                    <Button
-                      onClick={() => navigate('/loading')}
-                      variant="contained"
-                      fullWidth
-                      sx={{ mt: 1, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
-                    >
-                      Find a Recipe
+                      Generate Restaurant
                     </Button>
                   </form>
                 </Paper>
               </Box>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <h1>Log in to generate recipes</h1>
-                <Button onClick={() => navigate('/login')} sx={{ width: { xs: 200, sm: 400 }, backgroundColor: '#ff7043', marginTop: 5 }} variant="contained">Log In</Button>
-                <Button onClick={() => navigate('/recipes')} variant="contained" sx={{ width: { xs: 200, sm: 400 }, backgroundColor: '#ff7043', marginTop: 5 }}>Check out other users recipes</Button>
+                <h1>Log in to generate restaurants</h1>
+                <Button
+                  onClick={() => navigate('/login')}
+                  sx={{ width: { xs: 200, sm: 400 }, backgroundColor: '#ff7043', marginTop: 5 }}
+                  variant="contained"
+                >
+                  Log In
+                </Button>
+                <Button
+                  onClick={() => navigate('/restaurants')}
+                  variant="contained"
+                  sx={{ width: { xs: 200, sm: 400 }, backgroundColor: '#ff7043', marginTop: 5 }}
+                >
+                  Check out other users' restaurants
+                </Button>
               </div>
             )}
           </div>
         )}
       </div>
-    </div >
+    </div>
   );
 }
