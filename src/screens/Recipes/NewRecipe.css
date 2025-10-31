@@ -8,7 +8,6 @@
   border-radius: 12px;
   font-family: 'Arial', sans-serif;
   margin-top: 200px;
-  /* Prevent overlap with fixed navbar */
   padding-top: 2rem;
 }
 
@@ -28,7 +27,7 @@
   color: #333;
 }
 
-/* Input, textarea, file input */
+/* Inputs, textareas, file input */
 .new-recipe-form input[type="text"],
 .new-recipe-form input[type="number"],
 .new-recipe-form textarea,
@@ -40,7 +39,6 @@
   font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
-  /* ensures padding doesn’t break width */
 }
 
 /* Textarea styling */
@@ -62,18 +60,42 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
   align-self: flex-start;
-  /* button aligned to left */
 }
 
 .new-recipe-form button[type="submit"]:hover {
   background-color: #ff5722;
 }
 
-/* Optional: hover/focus effect for inputs */
+/* Input focus/hover */
 .new-recipe-form input[type="text"]:focus,
 .new-recipe-form input[type="number"]:focus,
 .new-recipe-form textarea:focus {
   border-color: #ff7043;
   outline: none;
   box-shadow: 0 0 3px rgba(255, 112, 67, 0.5);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .new-recipe-container {
+    margin: 1rem;
+    padding: 1rem;
+    margin-top: 100px;
+  }
+
+  .new-recipe-form button[type="submit"] {
+    width: 100%;
+    text-align: center;
+  }
+
+  .new-recipe-form input[type="text"],
+  .new-recipe-form input[type="number"],
+  .new-recipe-form textarea {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .new-recipe-form label {
+    font-size: 0.95rem;
+  }
 }

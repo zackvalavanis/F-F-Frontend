@@ -1,8 +1,10 @@
 import type { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
 import './NewRecipe.css';
+import useUser from "../../components/Context/useUser";
 
 interface Recipe {
+  user_id?: number;
   id?: number;
   category: string;
   description: string;
@@ -10,7 +12,6 @@ interface Recipe {
   ingredients: string;
   prep_time: number;
   cook_time: number;
-  rating: number;
   servings: number;
   tags: string;
   title: string;
@@ -18,10 +19,13 @@ interface Recipe {
   directions: string;
 }
 
+
 export function NewRecipe() {
   const [category, setCategory] = useState<string>('')
   const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"]
   const token = localStorage.getItem("jwt")
+  const { user } = useUser();
+
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -35,13 +39,13 @@ export function NewRecipe() {
 
 
   const [formData, setFormData] = useState<Recipe>({
+    user_id: user?.user_id,
     category: "",
     description: "",
     difficulty: 1,
     ingredients: "",
     prep_time: 0,
     cook_time: 0,
-    rating: 1,
     servings: 1,
     tags: "",
     title: "",
@@ -75,14 +79,12 @@ export function NewRecipe() {
       const value = formData[key as keyof typeof formData];
 
       if (key === "images" && Array.isArray(value)) {
-        // ✅ Handle multiple file uploads
         value.forEach((file) => {
           if (file instanceof File) {
             data.append("images[]", file);
           }
         });
       } else if (value !== undefined && value !== null) {
-        // ✅ Convert non-file values safely to string
         data.append(key, String(value));
       }
     };
@@ -100,13 +102,13 @@ export function NewRecipe() {
       console.log("Recipe created:", json);
       // Optionally reset form
       setFormData({
+        user_id: user?.user_id,
         category: "",
         description: "",
         difficulty: 1,
         ingredients: "",
         prep_time: 0,
         cook_time: 0,
-        rating: 1,
         servings: 1,
         tags: "",
         title: "",
@@ -120,8 +122,9 @@ export function NewRecipe() {
 
   return (
     <div className="new-recipe-container">
-      <h1 style={{ display: 'flex', justifyContent: 'center', color: '#f37136' }}>Create a New Recipe</h1>
+      <h1 style={{ display: 'flex', justifyContent: 'center', color: '#f37136', alignItems: 'center', textAlign: 'center' }}>Create a New Recipe</h1>
       <form onSubmit={handleCreate} className="new-recipe-form">
+        <input type="hidden" name="user_id" value={user?.user_id} />
         <label>
           Title:
           <input type="text" name="title" value={formData.title} onChange={handleChange} required />
@@ -149,7 +152,7 @@ export function NewRecipe() {
             name="ingredients"
             value={formData.ingredients}
             onChange={handleChange}
-            placeholder="Enter each ingredient on a new line"
+            placeholder="Separate each step with comma"
           />
         </label>
 
@@ -159,7 +162,7 @@ export function NewRecipe() {
             name="directions"
             value={formData.directions}
             onChange={handleChange}
-            placeholder="Enter each step on a new line"
+            placeholder="Separate each step with comma"
           />
         </label>
 
@@ -183,15 +186,15 @@ export function NewRecipe() {
           <input type="number" name="difficulty" min={1} max={5} value={formData.difficulty} onChange={handleChange} />
         </label>
 
-        <label>
+        {/* <label>
           Rating (1-10):
           <input type="number" name="rating" min={1} max={10} value={formData.rating} onChange={handleChange} />
-        </label>
+        </label> */}
 
-        <label>
+        {/* <label>
           Tags (comma separated):
           <input type="text" name="tags" value={formData.tags} onChange={handleChange} />
-        </label>
+        </label> */}
 
         <label>
           Images:
