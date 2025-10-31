@@ -16,6 +16,9 @@ import { RestaurantShow } from './screens/Restaurants/RestaurantShow'
 import { SignUp } from './screens/Auth/SignUp'
 import { CreateNewRestaurant } from './screens/Restaurants/CreateNewRestaurant'
 import { FavoriteRestaurants } from './screens/Restaurants/FavoriteRestaurants'
+import { GenerateRestaurant } from './screens/Restaurants/GenerateRestaurant'
+import { GenerateRecipe } from './screens/Recipes/GenerateRecipe.tsx'
+
 
 function App() {
   const router = createBrowserRouter([
@@ -44,11 +47,13 @@ function App() {
         { path: '/favorites', element: <Favorites /> },
         { path: '/restaurants', element: <Restaurants /> },
         { path: '/new-recipe', element: <NewRecipe /> },
+        { path: '/generate-recipe', element: <GenerateRecipe /> },
         { path: '/profile/:id', element: <Profile /> },
         { path: '/restaurants/:id', element: <RestaurantShow /> },
         { path: '/create-restaurant', element: <CreateNewRestaurant /> },
         { path: '/sign-up', element: <SignUp /> },
-        { path: '/favorite-restaurants', element: <FavoriteRestaurants /> }
+        { path: '/favorite-restaurants', element: <FavoriteRestaurants /> },
+        { path: '/generate-restaurant', element: <GenerateRestaurant /> }
       ]
     },
     { path: '/loading', element: <LoadingScreen /> },

@@ -40,7 +40,7 @@
   display: flex;
   gap: 40px;
   align-items: center;
-  font-size: 0.5rem;
+  font-size: 0.4rem;
   color: #f37136;
   cursor: pointer;
 }
@@ -57,7 +57,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
   font-family: cursive;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #f37136;
   text-align: center;
   cursor: pointer;
