@@ -131,7 +131,7 @@ export function GenerateRecipe() {
 
             {user && (
               <div>
-                <h1>Welcome {user.name}</h1>
+                <h1>Generate a Recipe!</h1>
               </div>
             )}
             {user ? (

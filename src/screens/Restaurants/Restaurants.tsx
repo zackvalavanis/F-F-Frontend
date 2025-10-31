@@ -1,28 +1,29 @@
-import { useEffect, useState } from 'react';
-import { Box, Typography, Paper, Button, TextField } from '@mui/material';
-import Grid from "@mui/material/Grid"
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState, useCallback } from 'react';
+import { Box, Typography, Paper, Button, TextField, MenuItem } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import MenuItem from '@mui/material/MenuItem';
-
 
 interface Restaurant {
   id: number;
   name: string;
   category: string;
   rating: number;
-  price: number
+  price: number;
 }
 
 export function Restaurants() {
   const api = import.meta.env.VITE_BACKEND_HOST;
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const perPage = 4; // 3x3 grid
-  const navigate = useNavigate()
-  const [price, setPrice] = useState('')
-  const [minRating, setMinRating] = useState('')
-  const [city, setCity] = useState('')
-  const [foodType, setFoodType] = useState('')
+  const perPage = 4;
+  const navigate = useNavigate();
+
+  // Filters
+  const [price, setPrice] = useState('');
+  const [minRating, setMinRating] = useState('');
+  const [city, setCity] = useState('');
+  const [foodType, setFoodType] = useState('');
 
   const priceMapping: Record<string, number> = {
     '$': 1,
@@ -31,18 +32,16 @@ export function Restaurants() {
     '$$$$': 4,
   };
 
-
-  const params = new URLSearchParams();
-
-  if (price) params.append('price', priceMapping[price].toString())
-  if (minRating) params.append('min_rating', minRating)  // use underscore
-  if (city) params.append('city', city)
-  if (foodType) params.append('food_type', foodType)
-
-  const queryString = params.toString()
-
-  const fetchRestaurants = async () => {
+  // Fetch restaurants function
+  const fetchRestaurants = useCallback(async () => {
     try {
+      const params = new URLSearchParams();
+      if (price) params.append('price', priceMapping[price].toString());
+      if (minRating) params.append('min_rating', minRating);
+      if (city) params.append('city', city);
+      if (foodType) params.append('food_type', foodType);
+
+      const queryString = params.toString();
       const res = await fetch(`${api}/restaurants?${queryString}`);
       if (!res.ok) throw new Error('Network response was not ok');
       const data = await res.json();
@@ -50,15 +49,13 @@ export function Restaurants() {
     } catch (error) {
       console.error('Error fetching restaurants:', error);
     }
-  };
+  }, [price, minRating, city, foodType, api]);
 
+  // Run fetch on mount and whenever filters change
   useEffect(() => {
     fetchRestaurants();
-  }, [price, minRating, city, foodType]);
+  }, [fetchRestaurants]);
 
-
-
-  console.log(restaurants)
   // Pagination logic
   const lastIndex = currentPage * perPage;
   const firstIndex = lastIndex - perPage;
@@ -66,23 +63,32 @@ export function Restaurants() {
   const totalPages = Math.ceil(restaurants.length / perPage);
 
   const resetFilters = () => {
-    setPrice('')
-    setMinRating('')
-    setCity('')
-    setFoodType('')
-  }
+    setPrice('');
+    setMinRating('');
+    setCity('');
+    setFoodType('');
+  };
 
   return (
     <div style={{ marginTop: '8rem' }}>
       <Box sx={{ minHeight: { xs: '50vh', sm: '100vh' }, p: 4 }}>
         <Typography
           variant="h3"
-          sx={{ display: 'flex', flexDirection: 'column', mb: 4, justifyContent: 'center', alignItems: 'center', textAlign: 'center', color: '#ff7043', fontWeight: 600 }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            mb: 4,
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            color: '#ff7043',
+            fontWeight: 600,
+          }}
         >
           Restaurants
-          {/* <Button onClick={() => navigate('/create-restaurant')} variant='contained'>New Restaurant</Button> */}
         </Typography>
 
+        {/* Filters */}
         <Box component="form" sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'center', gap: 2, mb: 4, flexWrap: 'wrap' }}>
           <TextField
             label="Price"
@@ -103,7 +109,7 @@ export function Restaurants() {
             type="number"
             value={minRating}
             onChange={(e) => setMinRating(e.target.value)}
-            slotProps={{ htmlInput: { min: 0, max: 10 } }}
+            inputProps={{ min: 0, max: 10 }}
           />
           <TextField
             label="City"
@@ -114,11 +120,6 @@ export function Restaurants() {
             label="Food Type"
             value={foodType}
             onChange={(e) => setFoodType(e.target.value)}
-            slotProps={{
-              htmlInput: {
-
-              }
-            }}
           />
           <Button sx={{ backgroundColor: '#ff7043' }} variant="contained" onClick={fetchRestaurants}>
             Apply Filters
@@ -128,15 +129,16 @@ export function Restaurants() {
           </Button>
         </Box>
 
+        {/* Restaurant grid */}
         <Grid container spacing={4} justifyContent="center">
           {currentRestaurants.map((restaurant) => (
-            <Grid sx={{ height: { xs: '200px', sm: '400px' }, display: 'flex', flexDirection: 'column' }} key={restaurant.id} spacing={4} justifyContent="center">
+            <Grid component="div" key={restaurant.id} sx={{ display: 'flex', justifyContent: 'center' }}>
               <Paper
                 onClick={() => navigate(`/restaurants/${restaurant.id}`, { state: restaurant })}
                 elevation={3}
                 sx={{
                   p: 3,
-                  height: 120,
+                  height: 180,
                   width: 200,
                   borderRadius: 3,
                   display: 'flex',
@@ -170,8 +172,8 @@ export function Restaurants() {
           ))}
         </Grid>
 
-
-        {totalPages > 1 ? (
+        {/* Pagination */}
+        {totalPages > 1 && (
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 2 }}>
             <Button
               disabled={currentPage === 1}
@@ -189,8 +191,6 @@ export function Restaurants() {
               Next
             </Button>
           </Box>
-        ) : (
-          <></>
         )}
       </Box>
     </div>

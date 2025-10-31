@@ -112,20 +112,28 @@ export function LandingPage() {
                 mt: 5,
               }}
             >
-              <h2>Log in to generate recipes</h2>
+              <h2 style={{ color: '#ff7043' }}>Log in to generate with Ai</h2>
               <Button
                 onClick={() => navigate('/login')}
-                sx={{ width: { xs: '80%', sm: 400 }, mt: 3, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
+                sx={{ width: { xs: '90%', sm: 400 }, mt: 3, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
                 variant="contained"
               >
                 Log In
               </Button>
               <Button
                 onClick={() => navigate('/recipes')}
-                sx={{ width: { xs: '80%', sm: 400 }, mt: 2, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
+                sx={{ width: { xs: '90%', sm: 400 }, mt: 2, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
                 variant="contained"
               >
                 Browse Recipes
+              </Button>
+
+              <Button
+                onClick={() => navigate('/restaurants')}
+                sx={{ width: { xs: '90%', sm: 400 }, mt: 2, backgroundColor: '#ff7043', '&:hover': { backgroundColor: '#ff5722' } }}
+                variant="contained"
+              >
+                Browse Restaurants
               </Button>
             </Box>
           )}
