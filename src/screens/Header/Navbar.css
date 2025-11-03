@@ -148,6 +148,7 @@
   .mobile-hamburger {
     display: flex;
     align-items: center;
+    margin-top: 10px;
   }
 
   .navbar-links {
@@ -183,7 +184,7 @@
   .container-center {
     font-size: 1.5rem;
     position: absolute;
-    top: 35%;
+    top: 50%;
   }
 
   .border-line {

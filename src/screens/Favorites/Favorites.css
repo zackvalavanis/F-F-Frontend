@@ -2,40 +2,74 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
-
-  min-height: 50rem;
-  /* default for small screens */
+  justify-content: flex-start;
+  padding: 3rem 2rem;
+  min-height: 60rem;
+  color: #333;
+  margin-top: 100px;
 }
 
+.favorites-page h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #ff7043;
+}
+
+/* Recipe grid container */
 .recipe-container-favorites {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+  justify-items: center;
+  width: 100%;
+  max-width: 1100px;
+  padding: 1rem;
+}
+
+/* Optional: make each card consistent height */
+.recipe-container-favorites>* {
+  width: 100%;
+  max-width: 350px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 
+/* Tablet and up */
 @media (min-width: 600px) {
   .favorites-page {
     min-height: 80rem;
+    padding: 4rem 2rem;
+  }
+
+  .favorites-page h1 {
+    font-size: 3rem;
   }
 }
 
+/* Mobile styling */
 @media (max-width: 480px) {
+  .favorites-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
 
   .favorites-page h1 {
-    display: flex;
+    font-size: 2rem;
     text-align: center;
-    justify-content: center;
-
   }
 
   .recipe-container-favorites {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    gap: 1.5rem;
+  }
+
+  .recipe-container-favorites>* {
+    max-width: 90%;
   }
 }

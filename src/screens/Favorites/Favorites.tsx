@@ -29,7 +29,7 @@ export function Favorites() {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const res = await fetch(import.meta.env.VITE_BACKEND);
+        const res = await fetch(import.meta.env.VITE_BACKEND_HOST);
         const data: Recipe[] = await res.json();
         setFavorites(data.filter(r => r.average_rating >= 8));
       } catch (error) {
