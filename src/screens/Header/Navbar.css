@@ -26,7 +26,7 @@
 
 /* Navbar content wrapper */
 .navbar-links {
-  width: 87%;
+  width: 95%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -91,7 +91,7 @@
 .border-line {
   position: absolute;
   bottom: 0;
-  width: 87%;
+  width: 95%;
   height: 1px;
   background-color: rgba(243, 113, 54, 0.4);
   transition: all 0.3s ease;
