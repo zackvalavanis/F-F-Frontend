@@ -135,7 +135,7 @@ export function GenerateRestaurant() {
               className="lottie-player"
             />
 
-            {user && <h1>Find a new Restaurant!</h1>}
+            {user && <h1 style={{ color: '#ff7043' }}>Generate a new Restaurant!</h1>}
 
             {user ? (
               <Box
@@ -173,6 +173,7 @@ export function GenerateRestaurant() {
                         width: '20rem',
                         fontSize: '20px',
                         color: 'white',
+                        cursor: 'pointer'
                       }}
                     >
                       <option style={{ color: 'white' }} value="">-- Select a category --</option>
@@ -180,13 +181,6 @@ export function GenerateRestaurant() {
                         <option key={idx} value={cat}>{cat}</option>
                       ))}
                     </select>
-
-                    <TextField
-                      name="city"
-                      type="text"
-                      placeholder="City"
-                      sx={{ mt: 2, width: '100%' }}
-                    />
 
                     <select
                       value={price}
@@ -202,6 +196,7 @@ export function GenerateRestaurant() {
                         fontSize: '20px',
                         color: 'white',
                         marginTop: '1rem',
+                        cursor: 'pointer'
                       }}
                     >
                       <option style={{ color: 'white' }} value="">-- Select a price --</option>
@@ -209,6 +204,15 @@ export function GenerateRestaurant() {
                         <option key={idx} value={p}>{p}</option>
                       ))}
                     </select>
+
+                    <TextField
+                      name="city"
+                      type="text"
+                      placeholder="City"
+                      sx={{ mt: 2, width: '100%' }}
+                    />
+
+
 
                     <Button
                       type="submit"

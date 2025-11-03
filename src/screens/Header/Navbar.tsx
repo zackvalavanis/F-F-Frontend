@@ -40,15 +40,15 @@ export function Navbar() {
 
       <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
         <div className="container-left-side">
-          <h1 onClick={() => { navigate('/recipes'); setMenuOpen(false); }}>Recipes</h1>
-          <h1 onClick={() => { navigate('/new-recipe'); setMenuOpen(false); }}>New Recipe</h1>
-          <h1 onClick={() => { navigate('/generate-recipe'); setMenuOpen(false); }}>Ai Generate Recipe</h1>
+          <h1 onClick={() => { navigate('/recipes'); setMenuOpen(false); }}><b>Recipes</b></h1>
+          <h1 onClick={() => { navigate('/new-recipe'); setMenuOpen(false); }}><b>New Recipe</b></h1>
+          <h1 onClick={() => { navigate('/generate-recipe'); setMenuOpen(false); }}><b>Generate Recipe</b></h1>
         </div>
 
         <div className="container-right-side">
-          <h1 onClick={() => { navigate('/generate-restaurant'); setMenuOpen(false); }}>Generate Ai Restaurant</h1>
-          <h1 onClick={() => { navigate('/create-restaurant'); setMenuOpen(false); }}>New Restaurant</h1>
-          <h1 onClick={() => { navigate('/restaurants'); setMenuOpen(false); }}>Restaurants</h1>
+          <h1 onClick={() => { navigate('/generate-restaurant'); setMenuOpen(false); }}><b>Generate Restaurant</b></h1>
+          <h1 onClick={() => { navigate('/create-restaurant'); setMenuOpen(false); }}><b>New Restaurant</b></h1>
+          <h1 onClick={() => { navigate('/restaurants'); setMenuOpen(false); }}><b>Restaurants</b></h1>
         </div>
       </div>
 

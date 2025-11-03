@@ -141,11 +141,11 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
             </Avatar>
 
           }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
+          // action={
+          //   <IconButton aria-label="settings">
+          //     <MoreVertIcon />
+          //   </IconButton>
+          // }
           title={recipe.title}
           subheader={recipe.category}
         />
@@ -182,7 +182,7 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
                 <FavoriteIcon />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Copy to clipboard" arrow>
+            <Tooltip title="Copy link to clipboard" arrow>
               <IconButton onClick={() => handleCopyUrl(recipe.id)} aria-label="share">
                 <ShareIcon />
               </IconButton>
