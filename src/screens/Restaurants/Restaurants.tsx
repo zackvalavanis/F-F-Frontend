@@ -1,22 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useCallback } from 'react';
-import { Box, Typography, Paper, Button, TextField, MenuItem } from '@mui/material';
-import { Grid } from '@mui/material';
+import { Box, Typography, Paper, Button, TextField, MenuItem, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 interface Restaurant {
-  id: number;
+  id?: number; // made optional to handle missing IDs
   name: string;
   category: string;
   rating: number;
-  price: number;
+  price?: number;
 }
 
 export function Restaurants() {
   const api = import.meta.env.VITE_BACKEND_HOST;
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const perPage = 4;
+  const perPage = 16;
   const navigate = useNavigate();
 
   // Filters
@@ -51,7 +50,6 @@ export function Restaurants() {
     }
   }, [price, minRating, city, foodType, api]);
 
-  // Run fetch on mount and whenever filters change
   useEffect(() => {
     fetchRestaurants();
   }, [fetchRestaurants]);
@@ -111,16 +109,8 @@ export function Restaurants() {
             onChange={(e) => setMinRating(e.target.value)}
             inputProps={{ min: 0, max: 10 }}
           />
-          <TextField
-            label="City"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
-          <TextField
-            label="Food Type"
-            value={foodType}
-            onChange={(e) => setFoodType(e.target.value)}
-          />
+          <TextField label="City" value={city} onChange={(e) => setCity(e.target.value)} />
+          <TextField label="Food Type" value={foodType} onChange={(e) => setFoodType(e.target.value)} />
           <Button sx={{ backgroundColor: '#ff7043' }} variant="contained" onClick={fetchRestaurants}>
             Apply Filters
           </Button>
@@ -130,9 +120,12 @@ export function Restaurants() {
         </Box>
 
         {/* Restaurant grid */}
-        <Grid container spacing={4} justifyContent="center">
-          {currentRestaurants.map((restaurant) => (
-            <Grid component="div" key={restaurant.id} sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Grid container spacing={5} justifyContent="center">
+          {currentRestaurants.map((restaurant, index) => (
+            <Grid
+              key={restaurant.id ?? `${restaurant.name}-${index}`} // fallback key
+              sx={{ display: 'flex', justifyContent: 'center' }}
+            >
               <Paper
                 onClick={() => navigate(`/restaurants/${restaurant.id}`, { state: restaurant })}
                 elevation={3}
@@ -165,7 +158,7 @@ export function Restaurants() {
                   {restaurant.rating ? `Rating: ${restaurant.rating} ⭐` : 'Not yet rated'}
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#ff7043', fontWeight: 500 }}>
-                  Price: {'$'.repeat(restaurant.price)}
+                  Price: {'$'.repeat(restaurant.price || 0)}
                 </Typography>
               </Paper>
             </Grid>
@@ -175,19 +168,13 @@ export function Restaurants() {
         {/* Pagination */}
         {totalPages > 1 && (
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 2 }}>
-            <Button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}
-            >
+            <Button disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => prev - 1)}>
               Previous
             </Button>
             <Typography sx={{ display: 'flex', alignItems: 'center' }}>
               Page {currentPage} of {totalPages}
             </Typography>
-            <Button
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((prev) => prev + 1)}
-            >
+            <Button disabled={currentPage === totalPages} onClick={() => setCurrentPage((prev) => prev + 1)}>
               Next
             </Button>
           </Box>
