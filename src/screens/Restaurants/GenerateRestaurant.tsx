@@ -59,14 +59,15 @@ export function GenerateRestaurant() {
     const city = cityInput.value.trim();
 
     try {
-      const res = await fetch(`${api}/restaurants/generate`, {
+      const res = await fetch(`${api}/restaurants/generate_restaurant`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           city,
           category,
           price: priceMapping[price],
-          user_id: user.user_id
+          user_id: user.user_id,
+          save: true
         })
       });
 
@@ -78,7 +79,8 @@ export function GenerateRestaurant() {
 
       const json = await res.json();
       console.log("Generated restaurant:", json);
-      navigate('/restaurants'); // Assuming you want to go to restaurants page
+      // navigate('/restaurants', { replace: true });
+      // window.location.reload();
     } catch (error) {
       console.error(error);
       alert("Failed to generate restaurant. Check console for details.");

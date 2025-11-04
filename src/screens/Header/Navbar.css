@@ -38,7 +38,7 @@
 .container-left-side,
 .container-right-side {
   display: flex;
-  gap: 40px;
+  gap: 25px;
   align-items: center;
   font-size: 0.9rem;
   font-weight: 500;
@@ -49,8 +49,8 @@
 
 .container-left-side h1,
 .container-right-side h1 {
-  font-size: 1rem;
-  font-weight: 600;
+  font-variant: small-caps;
+  font-size: 1.1rem;
   letter-spacing: 0.3px;
   transition: color 0.2s ease, transform 0.2s ease;
 }
