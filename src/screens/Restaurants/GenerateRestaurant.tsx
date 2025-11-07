@@ -79,8 +79,8 @@ export function GenerateRestaurant() {
 
       const json = await res.json();
       console.log("Generated restaurant:", json);
-      // navigate('/restaurants', { replace: true });
-      // window.location.reload();
+      navigate('/restaurants', { replace: true });
+      window.location.reload();
     } catch (error) {
       console.error(error);
       alert("Failed to generate restaurant. Check console for details.");

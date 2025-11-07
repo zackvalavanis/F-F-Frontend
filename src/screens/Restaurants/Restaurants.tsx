@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 interface Restaurant {
   id?: number; // made optional to handle missing IDs
   name: string;
+  city: string,
   category: string;
   rating: number;
   price?: number;
@@ -17,6 +18,8 @@ export function Restaurants() {
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 16;
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('')
+  const [filteredRestaurants, setFilteredRestaurants] = useState<Restaurant[]>([]);
 
   // Filters
   const [price, setPrice] = useState('');
@@ -31,7 +34,6 @@ export function Restaurants() {
     '$$$$': 4,
   };
 
-  // Fetch restaurants function
   const fetchRestaurants = useCallback(async () => {
     try {
       const params = new URLSearchParams();
@@ -59,12 +61,32 @@ export function Restaurants() {
   const firstIndex = lastIndex - perPage;
   const currentRestaurants = restaurants.slice(firstIndex, lastIndex);
   const totalPages = Math.ceil(restaurants.length / perPage);
+  const displayedRestaurants = searchQuery ? filteredRestaurants : currentRestaurants;
+
 
   const resetFilters = () => {
     setPrice('');
     setMinRating('');
     setCity('');
     setFoodType('');
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    const q = value.toLowerCase().trim();
+
+    const filtered = restaurants.filter((r) => {
+      return (
+        r.name.toLowerCase().includes(q) ||
+        r.city.toLowerCase().includes(q) ||
+        r.category.toLowerCase().includes(q)
+      );
+    });
+
+    setFilteredRestaurants(filtered);
+    setCurrentPage(1);
   };
 
   return (
@@ -109,7 +131,13 @@ export function Restaurants() {
             onChange={(e) => setMinRating(e.target.value)}
             inputProps={{ min: 0, max: 10 }}
           />
-          <TextField label="City" value={city} onChange={(e) => setCity(e.target.value)} />
+          <TextField
+            onChange={handleChange}
+            value={searchQuery}
+            type='text'
+            label='search'
+          ></TextField>
+          {/* <TextField label="City" value={city} onChange={(e) => handleChange(e.target.value)} /> */}
           <TextField label="Food Type" value={foodType} onChange={(e) => setFoodType(e.target.value)} />
           <Button sx={{ backgroundColor: '#ff7043' }} variant="contained" onClick={fetchRestaurants}>
             Apply Filters
@@ -121,7 +149,7 @@ export function Restaurants() {
 
         {/* Restaurant grid */}
         <Grid container spacing={5} justifyContent="center">
-          {currentRestaurants.map((restaurant, index) => (
+          {displayedRestaurants.map((restaurant, index) => (
             <Grid
               key={restaurant.id ?? `${restaurant.name}-${index}`} // fallback key
               sx={{ display: 'flex', justifyContent: 'center' }}
@@ -150,6 +178,9 @@ export function Restaurants() {
               >
                 <Typography variant="h5" sx={{ mb: 1 }}>
                   {restaurant.name}
+                </Typography>
+                <Typography variant='h6' sx={{ mb: 1 }}>
+                  {restaurant.city}
                 </Typography>
                 <Typography variant="body1" sx={{ mb: 1, color: 'text.secondary' }}>
                   {restaurant.category}

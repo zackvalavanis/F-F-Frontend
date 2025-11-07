@@ -1,8 +1,10 @@
 import type { Key } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './RestaurantShow.css';
+import { Button } from '@mui/material';
 
 interface Restaurant {
+  id: number,
   name: string;
   category?: string;
   images?: string[]; // Rails ActiveStorage redirect URLs
@@ -26,6 +28,7 @@ export function RestaurantShow() {
   const location = useLocation();
   const restaurant = location.state as Restaurant | undefined;
   console.log(restaurant);
+  const navigate = useNavigate()
 
   if (!restaurant) {
     return <p className="error-message">Restaurant data not found. Please go back.</p>;
@@ -37,6 +40,23 @@ export function RestaurantShow() {
     // Replace with your Rails API host & port
     return `${api}${url}`;
   };
+
+  const handleDeleteRestaurant = async (id: number) => {
+    console.log(id)
+    try {
+      const res = await fetch(`${api}/restaurants/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      if (res.ok) {
+        console.log('Restaurant being removed')
+        navigate('/restaurants')
+      }
+      console.log(res)
+    } catch (error) {
+      console.error('there was an error', error)
+    }
+  }
 
   return (
     <div className="restaurant-show-page">
@@ -76,6 +96,12 @@ export function RestaurantShow() {
         {restaurant.phone_number && <p><strong>Phone:</strong> {restaurant.phone_number}</p>}
         {restaurant.parking && <p><strong>Parking:</strong> {restaurant.parking}</p>}
       </section>
+
+      <Button
+        onClick={() => handleDeleteRestaurant(restaurant.id)}
+      >
+        Delete
+      </Button>
 
       {restaurant.website && (
         <section className="restaurant-website">
