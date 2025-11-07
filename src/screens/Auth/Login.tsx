@@ -4,6 +4,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 import './Login.css'
 import { useNavigate } from 'react-router-dom';
 import useUser from '../../components/Context/useUser.tsx';
+import { useCurrentLocation } from '../../components/Context/get_user_location.tsx';
+
 
 
 export function Login() {
@@ -17,6 +19,10 @@ export function Login() {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = () => setShowPassword((prev) => !prev);
+  const { currentLocation, getLocation } = useCurrentLocation();
+
+  console.log(currentLocation)
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,6 +43,7 @@ export function Login() {
         console.log('Logged in user', data)
         setUser(data)
         localStorage.setItem('jwt', data.jwt)
+        getLocation()
         navigate('/')
       } else {
         alert('Incorrect Email or Password')
@@ -45,6 +52,8 @@ export function Login() {
       console.log(error)
     }
   };
+
+
 
   return (
     <div className='login-page-container'>

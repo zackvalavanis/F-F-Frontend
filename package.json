@@ -17,6 +17,7 @@
     "@mui/material": "^7.3.4",
     "@mui/system": "^7.3.3",
     "axios": "^1.12.2",
+    "geolib": "^3.3.4",
     "lodash": "^4.17.21",
     "lottie-react": "^2.4.1",
     "react": "^19.1.1",

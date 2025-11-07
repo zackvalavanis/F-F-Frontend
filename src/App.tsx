@@ -18,6 +18,8 @@ import { CreateNewRestaurant } from './screens/Restaurants/CreateNewRestaurant'
 import { FavoriteRestaurants } from './screens/Restaurants/FavoriteRestaurants'
 import { GenerateRestaurant } from './screens/Restaurants/GenerateRestaurant'
 import { GenerateRecipe } from './screens/Recipes/GenerateRecipe.tsx'
+import { LocationProvider } from './components/Context/get_user_location.tsx'
+
 
 
 function App() {
@@ -62,9 +64,11 @@ function App() {
 
   return (
     <>
-      <UserProvider>
-        <RouterProvider router={router} />
-      </UserProvider>
+      <LocationProvider>
+        <UserProvider>
+          <RouterProvider router={router} />
+        </UserProvider>
+      </LocationProvider>
     </>
   )
 }

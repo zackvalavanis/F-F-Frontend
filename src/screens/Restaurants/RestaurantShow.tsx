@@ -1,7 +1,9 @@
-import type { Key } from 'react';
+import { useEffect, useState, type Key } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './RestaurantShow.css';
 import { Button } from '@mui/material';
+import { useCurrentLocation } from '../../components/Context/get_user_location.tsx';
+import getDistance from 'geolib/es/getDistance';
 
 interface Restaurant {
   id: number,
@@ -21,6 +23,8 @@ interface Restaurant {
   website?: string;
   phone_number?: string;
   parking?: string;
+  latitude: number;
+  longitude: number
 }
 
 export function RestaurantShow() {
@@ -29,6 +33,25 @@ export function RestaurantShow() {
   const restaurant = location.state as Restaurant | undefined;
   console.log(restaurant);
   const navigate = useNavigate()
+  const { currentLocation } = useCurrentLocation();
+  console.log('my current location', currentLocation)
+  const [milesAway, setMilesAway] = useState<string>('')
+
+  useEffect(() => {
+
+    if (currentLocation && restaurant?.latitude && restaurant?.longitude) {
+      const distanceMeters = getDistance(
+        { latitude: restaurant.latitude, longitude: restaurant.longitude },
+        { latitude: currentLocation.latitude, longitude: currentLocation.longitude }
+      );
+      const distMiles = distanceMeters * 0.00062137
+      const fixed = distMiles.toFixed(2)
+      setMilesAway(fixed)
+
+      // const distanceKm = distanceMeters / 1000; // convert to km
+      console.log('Distance to restaurant:', distMiles.toFixed(2), 'miles');
+    }
+  }, [currentLocation, restaurant]);
 
   if (!restaurant) {
     return <p className="error-message">Restaurant data not found. Please go back.</p>;
@@ -58,6 +81,7 @@ export function RestaurantShow() {
     }
   }
 
+
   return (
     <div className="restaurant-show-page">
       <header className="restaurant-header">
@@ -86,6 +110,7 @@ export function RestaurantShow() {
         {restaurant.city && restaurant.state && (
           <p><strong>Location:</strong> {restaurant.city}, {restaurant.state}</p>
         )}
+        {milesAway && <p><strong>Distance from you:</strong> {milesAway} Miles Away</p>}
         {restaurant.description && <p><strong>Description:</strong> {restaurant.description}</p>}
         {restaurant.food_type && <p><strong>Food Type:</strong> {restaurant.food_type}</p>}
         <p><strong>Kid Friendly:</strong> {restaurant.kid_friendly ? 'Yes' : 'No'}</p>
