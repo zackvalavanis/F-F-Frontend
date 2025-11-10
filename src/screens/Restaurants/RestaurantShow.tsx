@@ -31,10 +31,10 @@ export function RestaurantShow() {
   const api = import.meta.env.VITE_BACKEND_HOST
   const location = useLocation();
   const restaurant = location.state as Restaurant | undefined;
-  console.log(restaurant);
+  // console.log(restaurant);
   const navigate = useNavigate()
   const { currentLocation } = useCurrentLocation();
-  console.log('my current location', currentLocation)
+  // console.log('my current location', currentLocation)
   const [milesAway, setMilesAway] = useState<string>('')
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export function RestaurantShow() {
       setMilesAway(fixed)
 
       // const distanceKm = distanceMeters / 1000; // convert to km
-      console.log('Distance to restaurant:', distMiles.toFixed(2), 'miles');
+      // console.log('Distance to restaurant:', distMiles.toFixed(2), 'miles');
     }
   }, [currentLocation, restaurant]);
 
@@ -75,7 +75,7 @@ export function RestaurantShow() {
         console.log('Restaurant being removed')
         navigate('/restaurants')
       }
-      console.log(res)
+      // console.log(res)
     } catch (error) {
       console.error('there was an error', error)
     }
@@ -122,11 +122,14 @@ export function RestaurantShow() {
         {restaurant.parking && <p><strong>Parking:</strong> {restaurant.parking}</p>}
       </section>
 
-      <Button
-        onClick={() => handleDeleteRestaurant(restaurant.id)}
-      >
-        Delete
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Button
+          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#ff7043', color: 'white' }}
+          onClick={() => handleDeleteRestaurant(restaurant.id)}
+        >
+          Delete
+        </Button>
+      </div>
 
       {restaurant.website && (
         <section className="restaurant-website">

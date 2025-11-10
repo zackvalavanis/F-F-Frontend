@@ -229,7 +229,7 @@ export function GenerateRestaurant() {
               </Box>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <h1>Log in to generate restaurants</h1>
+                <h1 style={{ color: '#ff7043' }}>Log in to generate restaurants</h1>
                 <Button
                   onClick={() => navigate('/login')}
                   sx={{ width: { xs: 200, sm: 400 }, backgroundColor: '#ff7043', marginTop: 5 }}

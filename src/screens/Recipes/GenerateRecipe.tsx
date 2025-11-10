@@ -21,7 +21,7 @@ export function GenerateRecipe() {
   const [category, setCategory] = useState<string>('');
   const categories = ["Breakfast", "Lunch", "Dinner", "Dessert"];
 
-  console.log(user)
+  // console.log(user)
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(event.target.value);
@@ -70,8 +70,8 @@ export function GenerateRecipe() {
       }
 
       const json = await res.json();
-      console.log("Generated recipe:", json);
-      navigate('/recipes');
+      console.log("Generated recipe:", json.recipe.id);
+      navigate(`/recipes/${json.recipe.id}`);
     } catch (error) {
       console.error(error);
       alert("Failed to generate recipe. Check console for details.");

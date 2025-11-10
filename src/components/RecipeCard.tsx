@@ -119,6 +119,7 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
       const data = await res.json()
       console.log('Rating submitted', data)
       alert('Thank you for rating the recipe')
+      setModalShowing(false)
     } catch (error) {
       console.error('The recipe could not be rated.', error)
       alert('Faield to submit rating')
