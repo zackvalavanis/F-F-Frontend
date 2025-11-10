@@ -45,8 +45,13 @@ export function Restaurants() {
       const queryString = params.toString();
       const res = await fetch(`${api}/restaurants?${queryString}`);
       if (!res.ok) throw new Error('Network response was not ok');
-      const data = await res.json();
-      setRestaurants(data);
+      const data = (await res.json()) as Restaurant[];
+
+      const uniqueRestaurants = Array.from(
+        new Map(data.map((r) => [r.name, r])).values()
+      );
+
+      setRestaurants(uniqueRestaurants);
     } catch (error) {
       console.error('Error fetching restaurants:', error);
     }
