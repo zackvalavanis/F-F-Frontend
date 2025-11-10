@@ -19,6 +19,7 @@ import { Button, Tooltip } from '@mui/material';
 import { LikeModal } from './LikeModal';
 // import { TextField } from '@mui/material'
 import { Box } from '@mui/material';
+import { PleaseLogInModal } from './PleaseLogInModal';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -63,11 +64,10 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const [modalShowing, setModalShowing] = useState(false)
+  const [logInModalShowing, setLogInModalShowing] = useState(false)
   const [rating, setRating] = useState<number | null>(null)
   const api = import.meta.env.VITE_BACKEND_HOST
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
-
-
 
 
   const handleExpandClick = () => setExpanded(!expanded);
@@ -90,6 +90,11 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
   const showLikeModal = () => {
     setModalShowing(true)
     console.log('modalShowing')
+  }
+
+
+  const showModalLogIn = () => {
+    setLogInModalShowing(true)
   }
 
 
@@ -178,7 +183,7 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
         <CardActions disableSpacing sx={{ justifyContent: 'space-between' }}>
           <div>
             <Tooltip title='Rate dish'>
-              <IconButton onClick={showLikeModal} aria-label="add to favorites">
+              <IconButton onClick={user ? showLikeModal : showModalLogIn} aria-label="add to favorites">
                 <FavoriteIcon />
               </IconButton>
             </Tooltip>
@@ -260,6 +265,7 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
           </Button>
         </div>
       </LikeModal>
+      <PleaseLogInModal show={logInModalShowing} onClose={() => setLogInModalShowing(false)} />
     </div>
   );
 }
