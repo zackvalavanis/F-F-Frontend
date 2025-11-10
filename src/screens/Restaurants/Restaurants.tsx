@@ -90,8 +90,8 @@ export function Restaurants() {
   };
 
   return (
-    <div style={{ marginTop: '8rem' }}>
-      <Box sx={{ minHeight: { xs: '50vh', sm: '100vh' }, p: 4 }}>
+    <div style={{}}>
+      <Box sx={{ marginTop: { xs: '2rem', sm: '8rem' }, minHeight: { xs: '50vh', sm: '100vh' }, p: 4 }}>
         <Typography
           variant="h3"
           sx={{

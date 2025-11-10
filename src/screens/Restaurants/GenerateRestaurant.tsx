@@ -78,9 +78,9 @@ export function GenerateRestaurant() {
       }
 
       const json = await res.json();
-      console.log("Generated restaurant:", json);
-      navigate('/restaurants', { replace: true });
-      window.location.reload();
+      const restaurant = Array.isArray(json) ? json[0] : json;
+      console.log(restaurant)
+      navigate(`/restaurants/${restaurant.id}`, { replace: true, state: restaurant });
     } catch (error) {
       console.error(error);
       alert("Failed to generate restaurant. Check console for details.");
@@ -137,7 +137,7 @@ export function GenerateRestaurant() {
               className="lottie-player"
             />
 
-            {user && <h1 style={{ color: '#ff7043' }}>Generate a new Restaurant!</h1>}
+            {user && <h1 style={{ textAlign: 'center', color: '#ff7043' }}>Generate a new Restaurant!</h1>}
 
             {user ? (
               <Box
