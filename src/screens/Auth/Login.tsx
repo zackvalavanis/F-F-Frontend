@@ -19,10 +19,7 @@ export function Login() {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = () => setShowPassword((prev) => !prev);
-  const { currentLocation, getLocation } = useCurrentLocation();
-
-  console.log(currentLocation)
-
+  const { getLocation } = useCurrentLocation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,7 +27,7 @@ export function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Login data:', formData);
+    // console.log('Login data:', formData);
     try {
       const res = await fetch(`${api}/sessions.json`, {
         method: 'POST',
@@ -40,7 +37,7 @@ export function Login() {
       })
       if (res.ok) {
         const data = await res.json()
-        console.log('Logged in user', data)
+        // console.log('Logged in user', data)
         setUser(data)
         localStorage.setItem('jwt', data.jwt)
         getLocation()

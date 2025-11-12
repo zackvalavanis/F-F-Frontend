@@ -64,7 +64,7 @@ export function Recipes({ onSearch }: { onSearch?: (query: string) => void }) {
     fetchRecipes();
   }, []);
 
-  console.log(recipes)
+  // console.log(recipes)
 
   const handleSearch = () => {
     const filtered = recipes.filter((r) => {

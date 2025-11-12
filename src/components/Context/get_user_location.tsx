@@ -29,7 +29,7 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             setCurrentLocation(position.coords);
-            console.log('User location:', position.coords);
+            // console.log('User location:', position.coords);
           },
           (error) => {
             console.error(error);
@@ -55,7 +55,7 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     const id = navigator.geolocation.watchPosition(
       (position) => {
         setCurrentLocation(position.coords);
-        console.log('Updated location:', position.coords);
+        // console.log('Updated location:', position.coords);
       },
       (error) => console.error(error),
       { enableHighAccuracy: true, maximumAge: 10000, timeout: 20000 }

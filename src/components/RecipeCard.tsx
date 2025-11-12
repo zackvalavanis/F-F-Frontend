@@ -221,7 +221,7 @@ export default function RecipeReviewCard({ recipe }: RecipeReviewCardProps) {
             <Typography variant="body2" sx={{ mb: 2 }}>
               Prep: {recipe.prep_time} min | Cook: {recipe.prep_time} min
             </Typography>
-            <Button fullWidth variant="contained" color="primary" onClick={handleShow}>
+            <Button sx={{ backgroundColor: '#ff7043' }} fullWidth variant="contained" color="primary" onClick={handleShow}>
               Start Cookin'
             </Button>
           </CardContent>
