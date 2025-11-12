@@ -2,6 +2,7 @@ import { Button, Typography, Box, Divider } from '@mui/material';
 import './RecipesShow.css';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import useUser from '../../components/Context/useUser';
 
 interface Recipe {
   id: number;
@@ -19,6 +20,9 @@ interface Recipe {
   rating: number;
   title: string;
   images?: string[];
+  user: {
+    id: number;
+  }
 }
 
 export function RecipesShow() {
@@ -26,6 +30,9 @@ export function RecipesShow() {
   const navigate = useNavigate();
   const { id } = useParams(); // get id from URL
   const backend = import.meta.env.VITE_BACKEND_HOST;
+  const { user } = useUser()
+
+
 
   // recipe state
   const [recipeData, setRecipeData] = useState<Recipe | null>(
@@ -46,6 +53,8 @@ export function RecipesShow() {
 
   const recipe = recipeData; // alias for easier usage
   const totalTime = recipe.prep_time + recipe.cook_time;
+  // console.log('recipe_user', recipe.user)
+  // console.log('user', user)
 
   const handleDeleteRecipe = async () => {
     try {
@@ -125,9 +134,16 @@ export function RecipesShow() {
       </ol>
 
       <Box sx={{ textAlign: 'center', marginTop: 4 }}>
-        <Button variant="contained" color="error" onClick={handleDeleteRecipe}>
-          Delete Recipe
-        </Button>
+        {user && user.user_id === recipe.user.id ? (
+          <Button variant="contained" color="error" onClick={handleDeleteRecipe}>
+            Delete Recipe
+          </Button>
+        ) : (
+          <>
+
+          </>
+        )}
+
       </Box>
     </Box>
   );

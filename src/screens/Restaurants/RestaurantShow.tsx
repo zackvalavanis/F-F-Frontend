@@ -4,6 +4,7 @@ import './RestaurantShow.css';
 import { Button } from '@mui/material';
 import { useCurrentLocation } from '../../components/Context/get_user_location.tsx';
 import getDistance from 'geolib/es/getDistance';
+import useUser from '../../components/Context/useUser.tsx';
 
 interface Restaurant {
   id: number,
@@ -25,7 +26,11 @@ interface Restaurant {
   parking?: string;
   latitude: number;
   longitude: number
+  user: {
+    id: number
+  }
 }
+
 
 export function RestaurantShow() {
   const api = import.meta.env.VITE_BACKEND_HOST
@@ -36,6 +41,9 @@ export function RestaurantShow() {
   const { currentLocation } = useCurrentLocation();
   // console.log('my current location', currentLocation)
   const [milesAway, setMilesAway] = useState<string>('')
+  const { user } = useUser()
+
+  console.log(user)
 
   useEffect(() => {
 
@@ -81,6 +89,8 @@ export function RestaurantShow() {
     }
   }
 
+  console.log(restaurant)
+
 
   return (
     <div className="restaurant-show-page">
@@ -123,12 +133,17 @@ export function RestaurantShow() {
       </section>
 
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Button
-          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#ff7043', color: 'white' }}
-          onClick={() => handleDeleteRestaurant(restaurant.id)}
-        >
-          Delete
-        </Button>
+        {user && user.user_id === restaurant.user.id ? (
+          <Button
+            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#ff7043', color: 'white' }}
+            onClick={() => handleDeleteRestaurant(restaurant.id)}
+          >
+            Delete
+          </Button>
+        ) : (
+          <>
+          </>
+        )}
       </div>
 
       {restaurant.website && (
