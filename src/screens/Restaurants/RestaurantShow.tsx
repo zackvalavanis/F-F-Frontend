@@ -4,7 +4,7 @@ import './RestaurantShow.css';
 import { Button } from '@mui/material';
 import { useCurrentLocation } from '../../components/Context/get_user_location.tsx';
 import getDistance from 'geolib/es/getDistance';
-import useUser from '../../components/Context/useUser.tsx';
+// import useUser from '../../components/Context/useUser.tsx';
 
 interface Restaurant {
   id: number,
@@ -41,9 +41,9 @@ export function RestaurantShow() {
   const { currentLocation } = useCurrentLocation();
   // console.log('my current location', currentLocation)
   const [milesAway, setMilesAway] = useState<string>('')
-  const { user } = useUser()
+  // const { user } = useUser()
 
-  console.log(user)
+  // console.log(user)
 
   useEffect(() => {
 
@@ -89,7 +89,7 @@ export function RestaurantShow() {
     }
   }
 
-  console.log(restaurant)
+  // console.log(restaurant)
 
 
   return (
@@ -124,7 +124,7 @@ export function RestaurantShow() {
         {restaurant.description && <p><strong>Description:</strong> {restaurant.description}</p>}
         {restaurant.food_type && <p><strong>Food Type:</strong> {restaurant.food_type}</p>}
         <p><strong>Kid Friendly:</strong> {restaurant.kid_friendly ? 'Yes' : 'No'}</p>
-        {restaurant.rating !== undefined && <p><strong>Rating:</strong> {restaurant.rating} / 5</p>}
+        {restaurant.rating !== undefined && <p><strong>Rating:</strong> {restaurant.rating} / 10</p>}
         {restaurant.price !== undefined && <p><strong>Price:</strong> {restaurant.price}</p>}
         <p><strong>Vegan Friendly:</strong> {restaurant.vegan_friendly ? 'Yes' : 'No'}</p>
         {restaurant.opening_hours && <p><strong>Hours:</strong> {restaurant.opening_hours}</p>}
@@ -133,17 +133,12 @@ export function RestaurantShow() {
       </section>
 
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        {user && user.user_id === restaurant.user.id ? (
-          <Button
-            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#ff7043', color: 'white' }}
-            onClick={() => handleDeleteRestaurant(restaurant.id)}
-          >
-            Delete
-          </Button>
-        ) : (
-          <>
-          </>
-        )}
+        <Button
+          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#ff7043', color: 'white' }}
+          onClick={() => handleDeleteRestaurant(restaurant.id)}
+        >
+          Delete
+        </Button>
       </div>
 
       {restaurant.website && (
